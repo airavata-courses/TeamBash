@@ -1,4 +1,5 @@
-#rraavi
-#sruthirameshv
-#manikandan5
-#janak1710
+Team Bash Members:
+Raghuveer Raavi (rraavi)
+Sruthi Ramesh Vani (sruthirameshv)
+Manikandan Murugesan (manikandan5)
+Janak Bhalla (janak1710)
