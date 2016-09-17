@@ -1,47 +1,40 @@
-from BeautifulSoup import BeautifulStoneSoup as Soup
+''' Data Ingestor Microservice -
+The service will take form data and generate
+the appropriate URL for the .gz file '''
+
+from boto.s3.connection import S3Connection
 from flask import Flask, jsonify, render_template, request, url_for, render_template
 import requests
+import matplotlib.pyplot as plt
+import boto
+from boto.s3.connection import S3Connection
+from flask import jsonify
 
 app = Flask(__name__)
 
 
-# Rather than passing everything in the URL we can make use of request.form['key for the field']
-
-#@app.route('/<int:yy>/<int:mm>/<int:dd>/<string:stationId>/', methods=['POST'])
-@app.route('/index/', methods=['POST'])
-def generateURL(yy, mm, dd, stationId):
-    # Error if trying to access non-existent file
-    print("HELLO")
-    if yy < 1991 or yy == 1991 and mm < 6:
+@app.route('/<string:yy>/<string:mm>/<string:dd>/<string:stationId>/', methods=['GET'])
+def generateMyURL(yy, mm, dd, stationId):
+    #Error if trying to access non-existent file
+    if yy < 1991 or (yy == 1991 and mm < 6):
         return render_template('base.html'), 404
 
-    # Base Url where we get the XML file from
-    url = 'http://unidata-nexrad-level2-chunks.s3.amazonaws.com/'
 
-    # Read the data from URL
-    response = requests.get(url)
+    s3conn = boto.connect_s3(anon = True)
+    bucket = s3conn.get_bucket('noaa-nexrad-level2',validate=False)
+    keyGenerated = str(yy)+"/" +str(mm)+"/"+str(dd)
 
-    # Create the partial key to be searched.
-    search_string = str(stationId) + "/" + "1/" + str(yy) + str(mm) + str(dd) + "/"
+    #Sample Download Url :https://noaa-nexrad-level2.s3.amazonaws.com/1996/06/06/KVBX/KVBX19960606_001958.gz
 
-    if response:
-
-        # text processing
-        soup = Soup(response.content)
-
-        # find all the <Key> tags in the document
-        key_tags = soup.findAll('Key')
-
-        # if there are no <Key> tags then return error page
-        if not key_tags:
-            return render_template('404.html'), 404
-
-        # Select a random time from the list
-        for k_tag in key_tags:
-            if search_string in k_tag:
-                return url_for(url + search_string)
-
+    for k in bucket.get_all_keys(prefix=keyGenerated):
+        #Reformatring the s3 content to match the .gz file
+        searchKeySet = str(k).split("Key:")[1].split(">")[0].split(",")[1]
+        if keyGenerated in str(searchKeySet):
+            finalURL = 'https://noaa-nexrad-level2.s3.amazonaws.com/'+searchKeySet
+            break
+    return jsonify(url = finalURL)
 
 # We only need this for local development.
 if __name__ == '__main__':
-    app.run(debug =True) #restart automatically
+    #restart automatically if DEBUG = True
+    app.run(host = '0.0.0.0')
