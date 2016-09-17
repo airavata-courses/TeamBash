@@ -1,37 +1,40 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask import request
 from flask import make_response
 import random
 import urllib.request as read
-from flask.templating import render_template
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/')  # ,methods=['POST'])
+# 'GET' method
 @app.route('/noaa-nexrad-level2.s3.amazonaws.com/<yy>/<mm>/<dd>/<stationId>/<filename>.gz', methods=['GET'])
 @app.route('/https://noaa-nexrad-level2.s3.amazonaws.com/<yy>/<mm>/<dd>/<stationId>/<filename>.gz', methods=['GET'])
 def detectionDummy(yy=None, mm=None, dd=None, stationId=None, filename=None):
-    # url = self.get_url()
-    print(filename)
-    url = 'https://noaa-nexrad-level2.s3.amazonaws.com/' + yy + '/' + mm + '/' + dd + '/' + stationId + '/' + filename + '.gz'
-    print(url)
-    if '.gz' in url and yy and mm and dd and stationId and filename:
-        result = compute(url)
-        response = make_response(result)
-        response.headers["Content-Disposition"] = "attachment; filename=dummy.kml"
-        return response
-    else:
-        return render_template('UrlError.html')
+    """
+    If we were to use POST, below is the code to implement
+        def detectionDummy():
+        json_dict = request.get_json()
+        url = json_dict.get('url','')
+        url_parts = url.split('/')
+        try:
+            yy = url_parts[3]
+            mm = url_parts[4]
+            dd = url_parts[5]
+            stationId = url_parts[6]
+            filename = url_parts[7]
+        except Exception:
+            yy,mm,dd,stationId,filename = None, None, None, None, None
+        print(url_parts)
+        if yy and mm and dd and stationId and filename and '.gz' in filename:"""
 
-
-def compute(url):
-    # uncomment to read the url
-    # data = read.urlopen(url).read()
-    flag = random.getrandbits(1)
-    if flag:
-        # Dummy kml file,in real world scenario, perform some calculations to generate this kml file
-        return """<?xml version="1.0" encoding="UTF-8"?>
+    if yy and mm and dd and stationId and filename:
+        url = 'https://noaa-nexrad-level2.s3.amazonaws.com/' + yy + '/' + mm + '/' + dd + '/' + stationId + '/' + filename + '.gz'
+        data = read.urlopen(url).read()
+        flag = random.getrandbits(1)
+        if flag:
+            result = """<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <name>KML Samples</name>
@@ -947,13 +950,19 @@ Simple Tables:<br>
   </Document>
 </kml>
 """
+            return jsonify(kml=result, flag=True), 201
+            # response = make_response(result)
+            # response.headers["Content-Disposition"] = "attachment; filename=dummy.kml"
+            # return response
+        else:
+            return jsonify(flag=False), 204
     else:
-        return """Not enough data to characterize the storm"""
+        return jsonify(flag=False), 404
 
 
 if __name__ == '__main__':
     app.run(
-        # host="127.0.0.1",
+        host="0.0.0.0",
         # port=int(5000),
-        debug=True
+        # debug=True
     )
