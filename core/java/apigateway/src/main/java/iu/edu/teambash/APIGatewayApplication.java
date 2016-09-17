@@ -1,20 +1,32 @@
 package iu.edu.teambash;
 
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.hibernate.HibernateBundle;
 import iu.edu.teambash.auth.UserAuthenticator;
 import iu.edu.teambash.core.User;
+import iu.edu.teambash.db.UserDao;
 import iu.edu.teambash.health.TemplateHealthCheck;
-import iu.edu.teambash.resources.APIGatewayResource;
+import iu.edu.teambash.resources.LoginResource;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import iu.edu.teambash.resources.DataIngestorResource;
 
 public class APIGatewayApplication extends Application<APIGatewayConfiguration> {
 
     public static void main(final String[] args) throws Exception {
         new APIGatewayApplication().run(args);
     }
+
+    private final HibernateBundle<APIGatewayConfiguration> hibernateBundle =
+            new HibernateBundle<APIGatewayConfiguration>(User.class) {
+                @Override
+                public DataSourceFactory getDataSourceFactory(APIGatewayConfiguration configuration) {
+                    return configuration.getDataSourceFactory();
+                }
+            };
 
     @Override
     public String getName() {
@@ -23,24 +35,26 @@ public class APIGatewayApplication extends Application<APIGatewayConfiguration> 
 
     @Override
     public void initialize(final Bootstrap<APIGatewayConfiguration> bootstrap) {
-        // TODO: application initialization
+        bootstrap.addBundle(hibernateBundle);
     }
+
 
     @Override
     public void run(final APIGatewayConfiguration configuration,
                     final Environment environment) {
-        final APIGatewayResource resource = new APIGatewayResource(
-                configuration.getTemplate(),
-                configuration.getDefaultName()
+        final UserDao dao = new UserDao(hibernateBundle.getSessionFactory());
+        final LoginResource resource = new LoginResource(dao
         );
+        final DataIngestorResource dataIngestorResource = new DataIngestorResource();
         final TemplateHealthCheck healthCheck =
-                new TemplateHealthCheck(configuration.getTemplate());
+                new TemplateHealthCheck("hello");
         environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
                 .setAuthenticator(new UserAuthenticator())
                 .setRealm("User Authenticator")
                 .buildAuthFilter()));
         environment.jersey().register(resource);
+        environment.jersey().register(dataIngestorResource);
     }
 
 }
