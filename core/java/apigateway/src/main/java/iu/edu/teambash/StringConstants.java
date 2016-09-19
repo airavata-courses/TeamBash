@@ -5,4 +5,5 @@ package iu.edu.teambash;
  */
 public class StringConstants {
     public static final String DATA_INGESTOR = "http://149.160.142.55:5000/";
+    public static final String STORM_DETECTION = "http://149.161.154.114:5000/";
 }

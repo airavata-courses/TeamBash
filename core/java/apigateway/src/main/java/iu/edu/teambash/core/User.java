@@ -3,6 +3,7 @@ package iu.edu.teambash.core;
 /**
  * Created by janakbhalla on 15/09/16.
  */
+
 import javax.persistence.*;
 import java.security.Principal;
 
@@ -11,17 +12,17 @@ import java.security.Principal;
 /*@NamedQueries(
         {
                 @NamedQuery(
-                        name = "db.User.findByNamePassword",
+                        uname = "db.User.findByNamePassword",
                         query = "SELECT p FROM User p"
                 )
         }
 )*/
 public class User implements Principal {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long uid;
     @Column
-    private String name;
+    private String uname;
 
     @Column
     private String password;
@@ -29,15 +30,14 @@ public class User implements Principal {
     public User() {
     }
 
-    public User(long uid, String username, String password) {
-        this.uid = uid;
-        this.name = username;
+    public User(String username, String password) {
+        this.uname = username;
         this.password = password;
     }
 
     @Override
     public String getName() {
-        return name;
+        return uname;
     }
 
     public long getUid() {
@@ -48,8 +48,8 @@ public class User implements Principal {
         this.uid = uid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
     public String getPassword() {

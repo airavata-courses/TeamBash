@@ -3,6 +3,7 @@ package iu.edu.teambash.health;
 /**
  * Created by janakbhalla on 14/09/16.
  */
+
 import com.codahale.metrics.health.HealthCheck;
 
 public class TemplateHealthCheck extends HealthCheck {

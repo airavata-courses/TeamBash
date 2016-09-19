@@ -1,5 +1,5 @@
 database:
-  # the name of your JDBC driver
+  # the uname of your JDBC driver
   driverClass: com.mysql.jdbc.Driver
 
   # the username

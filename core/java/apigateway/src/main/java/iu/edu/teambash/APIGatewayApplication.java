@@ -1,24 +1,21 @@
 package iu.edu.teambash;
 
+import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
 import iu.edu.teambash.auth.UserAuthenticator;
 import iu.edu.teambash.core.User;
 import iu.edu.teambash.db.UserDao;
 import iu.edu.teambash.health.TemplateHealthCheck;
-import iu.edu.teambash.resources.LoginResource;
-import io.dropwizard.Application;
-import io.dropwizard.auth.AuthDynamicFeature;
-import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
 import iu.edu.teambash.resources.DataIngestorResource;
+import iu.edu.teambash.resources.LoginResource;
 
 public class APIGatewayApplication extends Application<APIGatewayConfiguration> {
-
-    public static void main(final String[] args) throws Exception {
-        new APIGatewayApplication().run(args);
-    }
 
     private final HibernateBundle<APIGatewayConfiguration> hibernateBundle =
             new HibernateBundle<APIGatewayConfiguration>(User.class) {
@@ -27,6 +24,10 @@ public class APIGatewayApplication extends Application<APIGatewayConfiguration> 
                     return configuration.getDataSourceFactory();
                 }
             };
+
+    public static void main(final String[] args) throws Exception {
+        new APIGatewayApplication().run(args);
+    }
 
     @Override
     public String getName() {
@@ -53,6 +54,7 @@ public class APIGatewayApplication extends Application<APIGatewayConfiguration> 
                 .setAuthenticator(new UserAuthenticator())
                 .setRealm("User Authenticator")
                 .buildAuthFilter()));
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
         environment.jersey().register(resource);
         environment.jersey().register(dataIngestorResource);
     }
