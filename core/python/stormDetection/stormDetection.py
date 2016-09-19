@@ -932,9 +932,7 @@ Simple Tables:<br>
 """
             return jsonify(kml=result, flag=True), 201
         else:
-            return jsonify(flag=False), 205
-    else:
-        return jsonify(flag=False), 404
+            return jsonify(flag=False), 206
 
 
 if __name__ == '__main__':
