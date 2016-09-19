@@ -9,13 +9,13 @@ import com.google.common.collect.ImmutableSet;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.basic.BasicCredentials;
-import iu.edu.teambash.core.User;
+import iu.edu.teambash.core.UsersEntity;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public class UserAuthenticator implements Authenticator<BasicCredentials, User> {
+public class UserAuthenticator implements Authenticator<BasicCredentials, UsersEntity> {
 
     private static final Map<String, Set<String>> VALID_USERS = ImmutableMap.of(
             "guest", ImmutableSet.of(),
@@ -24,9 +24,9 @@ public class UserAuthenticator implements Authenticator<BasicCredentials, User> 
     );
 
     @Override
-    public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
+    public Optional<UsersEntity> authenticate(BasicCredentials credentials) throws AuthenticationException {
         if (VALID_USERS.containsKey(credentials.getUsername()) && "secret".equals(credentials.getPassword())) {
-            return Optional.of(new User(credentials.getUsername(), credentials.getPassword()));
+            return Optional.of(new UsersEntity(credentials.getUsername(), credentials.getPassword()));
         }
         return Optional.empty();
     }

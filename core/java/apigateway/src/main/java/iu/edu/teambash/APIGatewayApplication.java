@@ -9,7 +9,7 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import iu.edu.teambash.auth.UserAuthenticator;
-import iu.edu.teambash.core.User;
+import iu.edu.teambash.core.UsersEntity;
 import iu.edu.teambash.db.UserDao;
 import iu.edu.teambash.health.TemplateHealthCheck;
 import iu.edu.teambash.resources.DataIngestorResource;
@@ -18,7 +18,7 @@ import iu.edu.teambash.resources.LoginResource;
 public class APIGatewayApplication extends Application<APIGatewayConfiguration> {
 
     private final HibernateBundle<APIGatewayConfiguration> hibernateBundle =
-            new HibernateBundle<APIGatewayConfiguration>(User.class) {
+            new HibernateBundle<APIGatewayConfiguration>(UsersEntity.class) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(APIGatewayConfiguration configuration) {
                     return configuration.getDataSourceFactory();
@@ -50,11 +50,11 @@ public class APIGatewayApplication extends Application<APIGatewayConfiguration> 
         final TemplateHealthCheck healthCheck =
                 new TemplateHealthCheck("hello");
         environment.healthChecks().register("template", healthCheck);
-        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
+        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<UsersEntity>()
                 .setAuthenticator(new UserAuthenticator())
                 .setRealm("User Authenticator")
                 .buildAuthFilter()));
-        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(UsersEntity.class));
         environment.jersey().register(resource);
         environment.jersey().register(dataIngestorResource);
     }

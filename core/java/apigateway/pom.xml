@@ -9,12 +9,10 @@
         <maven>3.0.0</maven>
     </prerequisites>
 
-    <groupId>com.microservices.java</groupId>
+    <groupId>iu.edu.teambash</groupId>
     <artifactId>apigateway</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-
-    <uname>APIGateway</uname>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,7 +1,7 @@
 package iu.edu.teambash.db;
 
 import io.dropwizard.hibernate.AbstractDAO;
-import iu.edu.teambash.core.User;
+import iu.edu.teambash.core.UsersEntity;
 import org.hibernate.SessionFactory;
 
 import java.util.Optional;
@@ -9,16 +9,16 @@ import java.util.Optional;
 /**
  * Created by janakbhalla on 17/09/16.
  */
-public class UserDao extends AbstractDAO<User> {
+public class UserDao extends AbstractDAO<UsersEntity> {
     public UserDao(SessionFactory factory) {
         super(factory);
     }
 
-    public Optional<User> findById(Long id) {
+    public Optional<UsersEntity> findById(Long id) {
         return Optional.ofNullable(get(id));
     }
 
-    public User create(User user) {
+    public UsersEntity create(UsersEntity user) {
         return persist(user);
     }
 

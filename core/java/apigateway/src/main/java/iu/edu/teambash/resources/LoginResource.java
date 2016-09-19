@@ -7,7 +7,7 @@ package iu.edu.teambash.resources;
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import iu.edu.teambash.core.User;
+import iu.edu.teambash.core.UsersEntity;
 import iu.edu.teambash.db.UserDao;
 
 import javax.ws.rs.POST;
@@ -27,7 +27,7 @@ public class LoginResource {
     @POST
     @Timed
     @UnitOfWork
-    public Boolean login(@Auth User user) {
+    public Boolean login(@Auth UsersEntity user) {
         return true;
     }
 }
