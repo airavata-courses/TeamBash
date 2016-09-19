@@ -12,6 +12,7 @@ app = Flask(__name__)
 @app.route('/noaa-nexrad-level2.s3.amazonaws.com/<yy>/<mm>/<dd>/<stationId>/<filename>.gz', methods=['GET'])
 @app.route('/https://noaa-nexrad-level2.s3.amazonaws.com/<yy>/<mm>/<dd>/<stationId>/<filename>.gz', methods=['GET'])
 def detectionDummy(yy=None, mm=None, dd=None, stationId=None, filename=None):
+
     """
     If we were to use POST, below is the code to implement
         def detectionDummy():
@@ -955,7 +956,7 @@ Simple Tables:<br>
             # response.headers["Content-Disposition"] = "attachment; filename=dummy.kml"
             # return response
         else:
-            return jsonify(flag=False), 204
+            return jsonify(flag=False), 205
     else:
         return jsonify(flag=False), 404
 
