@@ -16,7 +16,7 @@ app = Flask(__name__)
 def generateMyURL(yy, mm, dd, stationId):
     #Error if trying to access non-existent file
     if yy < 1991 or (yy == 1991 and mm < 6):
-        return render_template('base.html'), 404
+        return jsonify(url = ''), 404
 
 
     s3conn = boto.connect_s3(anon = True)
@@ -31,7 +31,7 @@ def generateMyURL(yy, mm, dd, stationId):
         if keyGenerated in str(searchKeySet):
             finalURL = 'https://noaa-nexrad-level2.s3.amazonaws.com/'+searchKeySet
             break
-    return jsonify(url = finalURL)
+    return jsonify(url= finalURL) ,200
 
 # We only need this for local development.
 if __name__ == '__main__':
