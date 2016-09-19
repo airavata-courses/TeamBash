@@ -1,34 +1,13 @@
 from flask import Flask, jsonify
-from flask import request
-from flask import make_response
 import random
 import urllib.request as read
 
 app = Flask(__name__)
 
 
-@app.route('/')  # ,methods=['POST'])
-# 'GET' method
 @app.route('/noaa-nexrad-level2.s3.amazonaws.com/<yy>/<mm>/<dd>/<stationId>/<filename>.gz', methods=['GET'])
 @app.route('/https://noaa-nexrad-level2.s3.amazonaws.com/<yy>/<mm>/<dd>/<stationId>/<filename>.gz', methods=['GET'])
 def detectionDummy(yy=None, mm=None, dd=None, stationId=None, filename=None):
-
-    """
-    If we were to use POST, below is the code to implement
-        def detectionDummy():
-        json_dict = request.get_json()
-        url = json_dict.get('url','')
-        url_parts = url.split('/')
-        try:
-            yy = url_parts[3]
-            mm = url_parts[4]
-            dd = url_parts[5]
-            stationId = url_parts[6]
-            filename = url_parts[7]
-        except Exception:
-            yy,mm,dd,stationId,filename = None, None, None, None, None
-        print(url_parts)
-        if yy and mm and dd and stationId and filename and '.gz' in filename:"""
 
     if yy and mm and dd and stationId and filename:
         url = 'https://noaa-nexrad-level2.s3.amazonaws.com/' + yy + '/' + mm + '/' + dd + '/' + stationId + '/' + filename + '.gz'
@@ -952,9 +931,6 @@ Simple Tables:<br>
 </kml>
 """
             return jsonify(kml=result, flag=True), 201
-            # response = make_response(result)
-            # response.headers["Content-Disposition"] = "attachment; filename=dummy.kml"
-            # return response
         else:
             return jsonify(flag=False), 205
     else:
