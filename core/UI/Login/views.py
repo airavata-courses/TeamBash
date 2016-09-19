@@ -4,7 +4,8 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import redirect
-
+import httplib2
+import urllib
 
 # Create your views here.
 
@@ -12,11 +13,21 @@ def login(request) :
     return render(request, 'Login/login.html', {})
 
 def loginAPI(request):
-    # context = {
-    #     'username': request.POST[Username],
-    #     'password': request.POST[Password],
-    # }
-    return HttpResponseRedirect(request, 'http://149.161.136.83:8080/loginUser')
+    context = {
+        'username': request.POST['Username'],
+        'password': request.POST['Password'],
+    }
+    body = urllib.urlencode(context)
+    h = httplib2.Http()
+    resp, content = h.request("http://149.161.153.36:8080/loginUser", method="POST", body=body)
+    print("HIIIII")
+    return render(request, 'Login/weatherForm.html', {})
+    #requests.get('http://149.161.136.83:8080/loginUser',)
+#    return  HttpResponseRedirect(request, 'http://149.161.136.83:8080/loginUser')
+
+    # reply = json.loads(request.body)
+    # return HttpResponse(reply);
+
     #return redirect('http://149.161.136.83:8080/loginUser')
     #r = requests.post('http://149.161.136.83:8080/loginUser/', auth=HTTPBasicAuth(request.POST[Username], request.POST[Password]))
     #return render(request,'http://149.161.136.83:8080/loginUser/')
@@ -45,6 +56,6 @@ def weatherForm(request):
 def hit(request):
     if request.method == 'POST':
         print(request.POST)
-        #return redirect('http://149.161.136.83:8080/'+request.POST['year']+'/'+request.POST['month']+'/'+request.POST['day']+'/'+"KLTX"+'/')
-        return redirect('http://149.161.136.83:8080/redirect/1991/06/06/KLTX')
+        return redirect('http://149.161.136.83:8080/'+str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+request.POST['station']+'/')
+        #return redirect('http://149.161.136.83:8080/redirect/1991/06/06/KLTX')
         #return redirect('http://127.0.0.1:5000//')
