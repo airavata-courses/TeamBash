@@ -1,0 +1,18 @@
+language: python
+
+python:
+  - "2.7"
+
+branches:
+  only:
+    - feature/feature-3-data-ingestor
+notifications:
+  email:
+	-srameshv@indiana.edu
+sudo: true
+
+install:
+  - pip install -r /core/python/DataIngestor/requirements.txt
+
+script: cd "/core/python/DataIngestor" && python DataIngestor.py
+
