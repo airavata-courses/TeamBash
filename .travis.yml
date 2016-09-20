@@ -12,7 +12,7 @@ notifications:
 sudo: true
 
 install:
-  - pip install -r /core/python/DataIngestor/requirements.txt
+  - pip install -r core/python/DataIngestor/requirements.txt
 
-script: cd "/core/python/DataIngestor" && python DataIngestor.py
+script: cd "core/python/DataIngestor" && python DataIngestor.py
 
