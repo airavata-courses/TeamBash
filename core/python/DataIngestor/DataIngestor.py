@@ -3,11 +3,11 @@ The service will take form data and generate
 the appropriate URL for the .gz file '''
 
 from boto.s3.connection import S3Connection
-from flask import Flask, jsonify, render_template, request, url_for, render_template
+from flask import Flask, render_template, request, url_for, render_template
 import requests
 import boto
 from boto.s3.connection import S3Connection
-from flask import jsonify
+from flask import jsonify, abort
 
 app = Flask(__name__)
 
