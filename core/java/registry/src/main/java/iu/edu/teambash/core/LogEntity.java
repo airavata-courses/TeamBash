@@ -8,8 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "log", schema = "TeamBash", catalog = "")
-public class LogEntity
-{
+public class LogEntity {
     private int lId;
     private int uId;
     private int mId;
@@ -19,67 +18,56 @@ public class LogEntity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lID", nullable = false)
-    public int getlId()
-    {
+    public int getlId() {
         return lId;
     }
 
-    public void setlId(int lId)
-    {
+    public void setlId(int lId) {
         this.lId = lId;
     }
 
     @Basic
     @Column(name = "uID", nullable = false)
-    public int getuId()
-    {
+    public int getuId() {
         return uId;
     }
 
-    public void setuId(int uId)
-    {
+    public void setuId(int uId) {
         this.uId = uId;
     }
 
     @Basic
     @Column(name = "mID", nullable = false)
-    public int getmId()
-    {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(int mId)
-    {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 
     @Basic
     @Column(name = "startTime", nullable = false)
-    public Serializable getStartTime()
-    {
+    public Serializable getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Serializable startTime)
-    {
+    public void setStartTime(Serializable startTime) {
         this.startTime = startTime;
     }
 
     @Basic
     @Column(name = "endTime", nullable = false)
-    public Serializable getEndTime()
-    {
+    public Serializable getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Serializable endTime)
-    {
+    public void setEndTime(Serializable endTime) {
         this.endTime = endTime;
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -95,8 +83,7 @@ public class LogEntity
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int result = lId;
         result = 31 * result + uId;
         result = 31 * result + mId;

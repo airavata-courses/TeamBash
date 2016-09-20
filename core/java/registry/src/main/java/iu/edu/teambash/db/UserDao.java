@@ -4,6 +4,7 @@ import io.dropwizard.hibernate.AbstractDAO;
 import iu.edu.teambash.core.UsersEntity;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,7 +23,7 @@ public class UserDao extends AbstractDAO<UsersEntity> {
         return persist(user);
     }
 
-    /*public User findByNamePassword() {
-        return new User(namedQuery("db.User.findByNamePassword"));
-    }*/
+    public List<UsersEntity> findByNamePassword(String uname, String password) {
+        return list(namedQuery("db.UsersEntity.findByNamePassword").setParameter("uname", uname).setParameter("password", password));
+    }
 }

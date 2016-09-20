@@ -7,39 +7,33 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "microservices", schema = "TeamBash", catalog = "")
-public class MicroservicesEntity
-{
+public class MicroservicesEntity {
     private int mId;
     private String mName;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mID", nullable = false)
-    public int getmId()
-    {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(int mId)
-    {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 
     @Basic
     @Column(name = "mName", nullable = false, length = 30)
-    public String getmName()
-    {
+    public String getmName() {
         return mName;
     }
 
-    public void setmName(String mName)
-    {
+    public void setmName(String mName) {
         this.mName = mName;
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -52,8 +46,7 @@ public class MicroservicesEntity
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int result = mId;
         result = 31 * result + (mName != null ? mName.hashCode() : 0);
         return result;

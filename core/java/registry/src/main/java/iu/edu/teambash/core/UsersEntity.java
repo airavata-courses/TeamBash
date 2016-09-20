@@ -8,6 +8,10 @@ import java.security.Principal;
  */
 @Entity
 @Table(name = "users", schema = "TeamBash", catalog = "")
+@NamedQueries({
+        @NamedQuery(name = "db.UsersEntity.findByNamePassword",
+                query = "SELECT u FROM UsersEntity u WHERE u.uname = :uname and u.password = :password")
+})
 public class UsersEntity implements Principal {
     private int uid;
     private String uname;
@@ -21,7 +25,7 @@ public class UsersEntity implements Principal {
     public UsersEntity() {
     }
 
-    @Id()
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "uid", nullable = false)
     public int getUid() {
@@ -75,9 +79,13 @@ public class UsersEntity implements Principal {
     }
 
     @Override
+    @Transient
     public String getName() {
         return getUname();
     }
 
-    public void setName(String uname) {};
+    public void setName(String uname) {
+    }
+
+    ;
 }
