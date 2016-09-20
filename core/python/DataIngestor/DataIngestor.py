@@ -12,12 +12,13 @@ from flask import jsonify
 app = Flask(__name__)
 
 
-@app.route('/<string:yy>/<string:mm>/<string:dd>/<string:stationId>/', methods=['GET'])
+@app.route('/getUrl/<string:yy>/<string:mm>/<string:dd>/<string:stationId>/', methods=['GET'])
 def generateMyURL(yy, mm, dd, stationId):
     #Error if trying to access non-existent file
+    finalURL= ''
     if yy < 1991 or (yy == 1991 and mm < 6):
-        return jsonify(url = ''), 404
-
+        abort(404)
+        #return jsonify(url = 'Invalid arguments!!! Records does not exist'), 404
 
     s3conn = boto.connect_s3(anon = True)
     bucket = s3conn.get_bucket('noaa-nexrad-level2',validate=False)
@@ -31,9 +32,19 @@ def generateMyURL(yy, mm, dd, stationId):
         if keyGenerated in str(searchKeySet):
             finalURL = 'https://noaa-nexrad-level2.s3.amazonaws.com/'+searchKeySet
             break
+
+    if finalURL =='':
+        abort(404)
     return jsonify(url= finalURL) ,200
+
+
+@app.errorhandler(404)
+def invalidArguments(e):
+    return jsonify({'Error-Message': 'Invalid arguments!!! Records does not exist'})
+
+
 
 # We only need this for local development.
 if __name__ == '__main__':
     #restart automatically if DEBUG = True
-    app.run(host = '0.0.0.0')
+    app.run(host = '0.0.0.0',debug=True)
