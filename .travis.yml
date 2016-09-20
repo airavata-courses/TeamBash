@@ -8,7 +8,7 @@ branches:
     - feature/feature-3-data-ingestor
 notifications:
   email:
-	-srameshv@indiana.edu
+    - srameshv@indiana.edu
 sudo: true
 
 install:
