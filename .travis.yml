@@ -14,5 +14,5 @@ sudo: true
 install:
   - pip install -r core/python/DataIngestor/requirements.txt
 
-script: cd "core/python/DataIngestor/tests" && python DataIngestorTest.py
+script: cd "core/python/DataIngestor" && python DataIngestorTest.py
 
