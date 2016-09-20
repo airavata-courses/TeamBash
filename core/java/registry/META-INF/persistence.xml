@@ -3,6 +3,8 @@
 
     <persistence-unit name="persistenceUnit">
         <class>iu.edu.teambash.core.UsersEntity</class>
+        <class>iu.edu.teambash.core.LogEntity</class>
+        <class>iu.edu.teambash.core.MicroservicesEntity</class>
         <properties>
             <property name="openjpa.ConnectionURL"
                       value="jdbc:mysql://teambash.cfofssvi9hbo.us-west-2.rds.amazonaws.com:3306/TeamBash"/>

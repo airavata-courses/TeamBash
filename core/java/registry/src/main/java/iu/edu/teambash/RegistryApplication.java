@@ -12,6 +12,7 @@ import iu.edu.teambash.auth.UserAuthenticator;
 import iu.edu.teambash.core.UsersEntity;
 import iu.edu.teambash.db.UserDao;
 import iu.edu.teambash.resources.LoginResource;
+import iu.edu.teambash.resources.displayData;
 
 public class RegistryApplication extends Application<RegistryConfiguration> {
 
@@ -42,15 +43,16 @@ public class RegistryApplication extends Application<RegistryConfiguration> {
     public void run(final RegistryConfiguration configuration,
                     final Environment environment) {
         final UserDao dao = new UserDao(hibernateBundle.getSessionFactory());
-        final LoginResource resource = new LoginResource(dao
-        );
+        final LoginResource loginresource = new LoginResource(dao);
+        final displayData displayresource = new displayData(dao);
 
         environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<UsersEntity>()
                 .setAuthenticator(new UserAuthenticator())
                 .setRealm("User Authenticator")
                 .buildAuthFilter()));
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(UsersEntity.class));
-        environment.jersey().register(resource);
+        environment.jersey().register(loginresource);
+        environment.jersey().register(displayresource);
     }
 
 }
