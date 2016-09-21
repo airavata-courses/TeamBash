@@ -13,14 +13,6 @@ Weather Predictor - Milestone -1
      :alt: Built with Travis CI
 
 
-
-Settings
-------------
-
-Moved to settings_.
-
-.. _settings: http://cookiecutter-django.readthedocs.io/en/latest/settings.html
-
 Instructions Manual
 --------------
 
