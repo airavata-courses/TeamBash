@@ -16,12 +16,13 @@ app = Flask(__name__)
 def generateMyURL(yy, mm, dd, stationId):
     #Error if trying to access non-existent file
     finalURL= ''
-    if yy < 1991 or (yy == 1991 and mm < 6):
+    if yy < '1991' or (yy == '1991' and mm < '6'):
         abort(404)
         #return jsonify(url = 'Invalid arguments!!! Records does not exist'), 404
 
     s3conn = boto.connect_s3(anon = True)
     bucket = s3conn.get_bucket('noaa-nexrad-level2',validate=False)
+    print(bucket)
     keyGenerated = str(yy)+"/" +str(mm)+"/"+str(dd)
 
     #Sample Download Url :https://noaa-nexrad-level2.s3.amazonaws.com/1996/06/06/KVBX/KVBX19960606_001958.gz
@@ -29,19 +30,20 @@ def generateMyURL(yy, mm, dd, stationId):
     for k in bucket.get_all_keys(prefix=keyGenerated):
         #Reformatring the s3 content to match the .gz file
         searchKeySet = str(k).split("Key:")[1].split(">")[0].split(",")[1]
+        print(searchKeySet,"p{")
         if keyGenerated in str(searchKeySet):
-            finalURL = 'https://noaa-nexrad-level2.s3.amazonaws.com/'+searchKeySet
+            finalURL = 'noaa-nexrad-level2.s3.amazonaws.com/'+searchKeySet
+            print(finalURL)
             break
 
     if finalURL =='':
         abort(404)
-    return jsonify(url= finalURL) ,200
+    return finalURL ,200
 
 
 @app.errorhandler(404)
 def invalidArguments(e):
     return jsonify({'Error-Message': 'Invalid arguments!!! Records does not exist'})
-
 
 
 # We only need this for local development.
