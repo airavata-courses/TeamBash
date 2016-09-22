@@ -2,16 +2,16 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/forecastTrigger', function(req, res, next) {
+/* POST users listing. */
+router.post('/forecastTrigger', function(req, res, next) {
     var number = Math.random() > 0.5 ? 0 : 1;
     if(number==1) {
-        var resultForecast = {forecast:'YES' ,num:number};
-    }
+        var resultForecast = 'True';
+    } 
     else {
-        var resultForecast = {forecast: 'NO' , num:number};
+        var resultForecast = 'False';
     }
-    res.json(resultForecast);
+    res.send(resultForecast);
 });
 
 module.exports = router;
