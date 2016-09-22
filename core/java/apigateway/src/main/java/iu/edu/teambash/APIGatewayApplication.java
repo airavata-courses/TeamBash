@@ -5,6 +5,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import iu.edu.teambash.health.TemplateHealthCheck;
 import iu.edu.teambash.resources.DataIngestorResource;
+import iu.edu.teambash.resources.StormDetectionResource;
 
 public class APIGatewayApplication extends Application<APIGatewayConfiguration> {
 
@@ -26,10 +27,12 @@ public class APIGatewayApplication extends Application<APIGatewayConfiguration> 
     public void run(final APIGatewayConfiguration configuration,
                     final Environment environment) {
         final DataIngestorResource dataIngestorResource = new DataIngestorResource();
+        final StormDetectionResource stormDetectionResource = new StormDetectionResource();
         final TemplateHealthCheck healthCheck =
                 new TemplateHealthCheck("hello");
         environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(dataIngestorResource);
+        environment.jersey().register(stormDetectionResource);
     }
 
 }

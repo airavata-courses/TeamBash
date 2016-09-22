@@ -14,7 +14,7 @@ import java.net.URI;
  * Created by janakbhalla on 17/09/16.
  */
 
-@Path("/stormDetection/{url}/")
+@Path("/stormDetection/{url : .+}")
 public class StormDetectionResource {
 
     public StormDetectionResource() {
