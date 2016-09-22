@@ -1,0 +1,18 @@
+language: python
+
+python:
+  - "2.7"
+
+branches:
+  only:
+    - feature/feature-4-storm-detection
+notifications:
+  email:
+    - rraavi@indiana.edu
+sudo: true
+
+install:
+  - pip install -r core/python/stormDetection/requirements.txt
+
+script: cd "core/python/stormDetection" && python stormDetectionTest.py
+
