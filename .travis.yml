@@ -3,4 +3,8 @@ language: node_js
 node_js:
 - "4.5.0"
 
-install: ./install-dependencies.sh
+before_install:
+- cd core/javascript/runWeatherForecast/
+
+install:
+- npm install
