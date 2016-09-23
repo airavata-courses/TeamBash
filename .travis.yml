@@ -1,7 +1,7 @@
 language: python
 
 python:
-  - "2.7"
+  - "3"
 
 branches:
   only:
@@ -14,5 +14,5 @@ sudo: true
 install:
   - pip install -r core/python/stormDetection/requirements.txt
 
-script: cd "core/python/stormDetection" && python stormDetectionTest.py
+
 
