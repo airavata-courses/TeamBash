@@ -3,6 +3,16 @@ language: node_js
 node_js:
 - "4.5.0"
 
+notifications:
+  email:
+    -srameshv@indiana.edu
+
+branches:
+  only:
+    - feature/feature-13-forecast-trigger
+
+sudo: true
+
 before_install:
 - cd core/javascript/ForecastTrigger/
 
