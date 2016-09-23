@@ -929,7 +929,7 @@ Simple Tables:<br>
         expected_response = {
             "kml": result, 'flag':True}
 
-        response = tester.get('noaa-nexrad-level2.s3.amazonaws.com/1996/06/06/KABR/KABR19960606_000202.gz)
+        response = tester.get('noaa-nexrad-level2.s3.amazonaws.com/1996/06/06/KABR/KABR19960606_000202.gz')
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(json.loads(response.data), expected_response)
