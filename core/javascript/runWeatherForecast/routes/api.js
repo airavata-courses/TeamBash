@@ -6,11 +6,11 @@ var router = express.Router();
 var url = require('url');
 
 /* GET users trigger forecast value. */
-router.get('/run-weather-forecast/:value', function(req, res, next) {
+router.get('/runWeatherForecast', function(req, res, next) {
     // var url_parts = url.parse(req.url, true);
     // var query = url_parts.query;
-    var value = req.params.value;
-    if(value=='true')
+    var flag = Math.random() > 0.5 ? 0 : 1;
+    if(flag==1)
         string = `<?xml version="1.0" encoding="UTF-8"?>
     <kml xmlns="http://earth.google.com/kml/2.2">
         <Folder>
