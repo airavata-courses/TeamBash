@@ -2,18 +2,23 @@ package iu.edu.teambash.core;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import javax.persistence.EntityManager;
 
 /**
  * Created by murugesm on 9/20/16.
  */
 @Entity
 @Table(name = "log", schema = "TeamBash", catalog = "")
+@NamedQueries({
+        @NamedQuery(name = "db.LogEntity.findlogs",
+                query = "SELECT u FROM LogEntity u WHERE u.uId = :userid"),
+})
 public class LogEntity {
     private int lId;
     private int uId;
     private int mId;
-    private Serializable startTime;
-    private Serializable endTime;
+    private String startTime;
+    private String endTime;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,22 +52,22 @@ public class LogEntity {
     }
 
     @Basic
-    @Column(name = "startTime", nullable = false)
-    public Serializable getStartTime() {
+    @Column(name = "startTime", nullable = false, length = 20)
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Serializable startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
     @Basic
-    @Column(name = "endTime", nullable = false)
-    public Serializable getEndTime() {
+    @Column(name = "endTime", nullable = false, length = 20)
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Serializable endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
@@ -91,4 +96,5 @@ public class LogEntity {
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
         return result;
     }
+
 }
