@@ -2,14 +2,14 @@ package iu.edu.teambash.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import iu.edu.teambash.StringConstants;
-import org.glassfish.jersey.client.ClientResponse;
-import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.container.ResourceContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
@@ -26,6 +26,9 @@ public class DataIngestorResource {
     public DataIngestorResource() {
     }
 
+    @Context
+    private ResourceContext rc;
+
     @GET
     @Timed
     public Response redirect(@PathParam("year") String year, @PathParam("month") String month, @PathParam("date") String date, @PathParam("station") String station) {
@@ -38,7 +41,7 @@ public class DataIngestorResource {
         }
 
         String url = response.readEntity(String.class);
-        URI uri = UriBuilder.fromUri("/stormDetection/" + url).build();
-        return Response.seeOther(uri).build();
+        StormDetectionResource stormDetectionResource = rc.getResource(StormDetectionResource.class);
+        return stormDetectionResource.redirect(url);
     }
 }

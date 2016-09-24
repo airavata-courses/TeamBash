@@ -1,10 +1,10 @@
 package iu.edu.teambash.resources;
 
-import com.codahale.metrics.annotation.Timed;
+import io.dropwizard.jersey.PATCH;
 import iu.edu.teambash.StringConstants;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
@@ -12,23 +12,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * Created by janakbhalla on 22/09/16.
+ * Created by janakbhalla on 24/09/16.
  */
-@Path("/forecastTrigger")
-public class ForecastTriggerResource {
+@Path("/runForecast/")
+public class RunWeatherForecastResource {
 
-    @POST
-    @Timed
+    @GET
     public Response redirect(String cluster) {
         Client client = new JerseyClientBuilder().build();
-        Response response = client.target(StringConstants.FORECAST_TRIGGER).request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(cluster, MediaType.APPLICATION_JSON));
+        Response response = client.target(StringConstants.RUN_FORECAST).request(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML).get();
 
         if (response.getStatus() != 200) {
             throw new RuntimeException("Failed : HTTP error code : "
                     + response.getStatus());
         }
-
-        Boolean forecastTrigger = Boolean.valueOf(response.readEntity(String.class));
-        return Response.ok(forecastTrigger).build();
+        return response;
     }
+
+
 }
