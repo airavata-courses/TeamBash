@@ -8,9 +8,7 @@ Team Bash Members
 Weather Predictor - Milestone -1
 ==============================
 
-.. image:: https://img.shields.io/wercker/ci/wercker/docs.svg
-     :target: http://stackshare.io/travis-ci
-     :alt: Built with Travis CI
+Build Status: [![Build Status](https://travis-ci.org/airavata-courses/TeamBash.svg?branch=master)](https://travis-ci.org/airavata-courses/TeamBash)
 
 
 Instructions Manual
