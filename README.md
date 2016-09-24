@@ -8,8 +8,9 @@ Team Bash Members
 Weather Predictor - Milestone -1
 ==============================
 
-Build Status: [![Build Status](https://travis-ci.org/airavata-courses/TeamBash.svg?branch=master)](https://travis-ci.org/airavata-courses/TeamBash)
+Build Status - Master  : [![Build Status](https://travis-ci.org/airavata-courses/TeamBash.svg?branch=master)](https://travis-ci.org/airavata-courses/TeamBash)
 
+Build Status - Develop : [![Build Status](https://travis-ci.org/airavata-courses/TeamBash.svg?branch=Develop)](https://travis-ci.org/airavata-courses/TeamBash)
 
 Instructions Manual
 --------------
