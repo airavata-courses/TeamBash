@@ -28,7 +28,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
     bucket: team-bash
-    local_dir: dpl_cd_upload
+    local_dir: dpl_cd_upload1
     region: us-east-1
     skip_cleanup: true
     acl: public_read
