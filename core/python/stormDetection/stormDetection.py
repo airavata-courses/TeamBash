@@ -14,7 +14,7 @@ def stormDetection(yy=None, mm=None, dd=None, stationId=None, filename=None):
         data = read.urlopen(url).read()
         flag = random.getrandbits(1)
         if flag:
-            result = """<?xml version="1.0" encoding="UTF-8"?>
+            result = '''<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <name>KML Samples</name>
@@ -929,11 +929,10 @@ Simple Tables:<br>
     </Folder>
   </Document>
 </kml>
-"""
-            return jsonify(kml=result, flag=True), 201
+'''
+            return result, 200
         else:
-            return jsonify(flag=False), 206
-
+            return '', 206
 
 if __name__ == '__main__':
     app.run(
