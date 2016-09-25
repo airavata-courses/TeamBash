@@ -15,7 +15,8 @@ notifications:
 sudo: true
 
 install:
-  - pip install -r core/python/stormDetection/requirements.txt
+  - cd stormDetection
+  - pip install Flask
 
 script: nosetests
 
