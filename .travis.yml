@@ -20,4 +20,23 @@ install:
 script: 
   - echo \TODO\
 
+before_deploy:
+  - cd ..
+  - zip -r TeamBash_StormDetection.zip stormDetection || true
+  - mkdir -p "dpl_cd_upload2"
+  - mv TeamBash_StormDetection.zip dpl_cd_upload2/TeamBash_StormDetection.zip || true
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: team-bash
+    local_dir: dpl_cd_upload2
+    region: us-east-1
+    skip_cleanup: true
+    acl: public_read
+    detect_encoding: true
+    on:
+      branch: feature/feature-4-storm-detection
+
 
