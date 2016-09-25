@@ -12,6 +12,7 @@ branches:
 notifications:
   email:
     - rraavi@indiana.edu
+    - srameshv@indiana.edu
 sudo: true
 
 install:
