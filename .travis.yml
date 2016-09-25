@@ -17,7 +17,7 @@ install: true
 script: cd "core/java/registry" && mvn clean install -DskipTests=true
 
 before_deploy:
-  - cd ../core/java/
+  - cd ..
   - zip -r TeamBash_registry.zip registry || true
   - mkdir -p "registry_upload"
   - mv TeamBash_registry.zip registry_upload/TeamBash_registry.zip || true
@@ -28,7 +28,7 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     bucket: team-bash
     local_dir: registry_upload
-    region: us-west-2
+    region: us-east-1
     skip_cleanup: true
     acl: public_read
     detect_encoding: true
