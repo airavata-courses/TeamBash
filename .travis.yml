@@ -19,7 +19,7 @@ install:
 script: cd "core/python/DataIngestor" && python DataIngestorTest.py
 
 before_deploy:
-  - cd..
+  - cd ..
   - zip -r TeamBash_DataIngestor.zip DataIngestor || true
   - mkdir -p "dpl_cd_upload1"
   - mv TeamBash_DataIngestor.zip dpl_cd_upload1/TeamBash_DataIngestor.zip || true
@@ -28,8 +28,8 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
     bucket: team-bash
-    local_dir: dpl_cd_upload1
-    region: us-west-2
+    local_dir: dpl_cd_upload
+    region: us-east-1
     skip_cleanup: true
     acl: public_read
     detect_encoding: true
