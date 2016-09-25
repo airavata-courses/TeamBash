@@ -17,8 +17,7 @@ sudo: true
 install:
   - pip install -r core/python/stormDetection/requirements.txt
 
-script: 
-  - echo \TODO\
+script: nosetests
 
 before_deploy:
   - cd ..
