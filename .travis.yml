@@ -1,18 +1,17 @@
 language: python
 
 python:
-  - "3.2"
-  - "3.3"
-  - "3.4"
   - "3.5"
 
 branches:
   only:
     - feature/feature-4-storm-detection
+
 notifications:
   email:
     - rraavi@indiana.edu
     - srameshv@indiana.edu
+
 sudo: true
 
 install:
@@ -23,9 +22,9 @@ script:
 
 before_deploy:
   - cd ..
-  - zip -r TeamBash_StormDetection.zip stormDetection || true
+  - zip -r TeamBash_stormDetection.zip stormDetection || true
   - mkdir -p "dpl_cd_upload2"
-  - mv TeamBash_StormDetection.zip dpl_cd_upload2/TeamBash_StormDetection.zip || true
+  - mv TeamBash_stormDetection.zip dpl_cd_upload2/TeamBash_stormDetection.zip || true
 
 deploy:
   - provider: s3
