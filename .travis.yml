@@ -39,4 +39,15 @@ deploy:
     on:
       branch: feature/feature-4-storm-detection
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: team-bash
+    key: TeamBash_stormDetection.zip
+    bundle_type: zip
+    application: TeamBash-App
+    deployment_group: TeamBash-App
+    region: us-west-2
+    on:
+      branch: feature/feature-4-storm-detection
 
