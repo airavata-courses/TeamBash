@@ -15,3 +15,22 @@ jdk:
 sudo: false
 install: true
 script: cd "core/java/apigateway" && mvn clean install -DskipTests=true
+
+before_deploy:
+  - cd ..
+  - zip -r TeamBash_apigateway.zip apigateway || true
+  - mkdir -p "apigateway_upload"
+  - mv TeamBash_apigateway.zip apigateway_upload/TeamBash_apigateway.zip || true
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: team-bash
+    local_dir: apigateway_upload
+    region: us-east-1
+    skip_cleanup: true
+    acl: public_read
+    detect_encoding: true
+    on:
+      branch: feature/feature-10-apigateway
