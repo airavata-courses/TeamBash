@@ -23,6 +23,6 @@ public class LoginResource {
     @Timed
     @UnitOfWork
     public Response login(@Auth UsersEntity user) {
-        return Response.ok(user).build();
+        return Response.ok(user.getUid()).build();
     }
 }
