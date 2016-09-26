@@ -31,6 +31,7 @@ public class APIGatewayApplication extends Application<APIGatewayConfiguration> 
         final StormClusteringResource clusteringResource = new StormClusteringResource();
         final LoginResource loginResource = new LoginResource();
         final RunWeatherForecastResource runWeatherForecastResource = new RunWeatherForecastResource();
+        final RegistryResource registryResource = new RegistryResource();
         final TemplateHealthCheck healthCheck =
                 new TemplateHealthCheck("hello");
         environment.healthChecks().register("template", healthCheck);
@@ -40,6 +41,7 @@ public class APIGatewayApplication extends Application<APIGatewayConfiguration> 
         environment.jersey().register(clusteringResource);
         environment.jersey().register(loginResource);
         environment.jersey().register(runWeatherForecastResource);
+        environment.jersey().register(registryResource);
     }
 
 }

@@ -5,6 +5,7 @@ import iu.edu.teambash.StringConstants;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.client.Client;
@@ -14,14 +15,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by janakbhalla on 17/09/16.
  */
 
 
-@Path("/dataIngestor/{year}/{month}/{date}/{station}")
-public class DataIngestorResource {
+@Path("/dataIngestor/{uid}/{year}/{month}/{date}/{station}")
+public class DataIngestorResource extends AbstractResource {
 
     public DataIngestorResource() {
     }
@@ -31,9 +33,9 @@ public class DataIngestorResource {
 
     @GET
     @Timed
-    public Response redirect(@PathParam("year") String year, @PathParam("month") String month, @PathParam("date") String date, @PathParam("station") String station) {
-        Client client = new JerseyClientBuilder().build();
-        Response response = client.target(StringConstants.DATA_INGESTOR + year + "/" + month + "/" + date + "/" + station).request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).get();
+    public Response redirect(@PathParam("uid") int uid, @PathParam("year") String year, @PathParam("month") String month, @PathParam("date") String date, @PathParam("station") String station) {
+
+        Response response = invokeRemoteService(1, uid, StringConstants.DATA_INGESTOR + year + "/" + month + "/" + date + "/" + station, MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON, HttpMethod.GET, null);
 
         if (response.getStatus() != 200) {
             throw new RuntimeException("Failed : HTTP error code : "
@@ -42,6 +44,6 @@ public class DataIngestorResource {
 
         String url = response.readEntity(String.class);
         StormDetectionResource stormDetectionResource = rc.getResource(StormDetectionResource.class);
-        return stormDetectionResource.redirect(url);
+        return stormDetectionResource.redirect(url, uid);
     }
 }

@@ -1,3 +1,11 @@
+server:
+  applicationConnectors:
+  - type: http
+    port: 9997
+  adminConnectors:
+  - type: http
+    port: 9996
+
 database:
   # the uname of your JDBC driver
   driverClass: com.mysql.jdbc.Driver
