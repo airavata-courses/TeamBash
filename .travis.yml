@@ -37,15 +37,15 @@ deploy:
     on:
       branch: feature/feature-3-data-ingestor
  
- - provider: codedeploy
-   access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
-   secret_access_key: $AWS_SECRET_KEY
-   bucket: sga-teambash
-   key: TeamBash_DataIngestor.zip
-   bundle_type: zip
-   application: TeamBash-App
-   deployment_group: TeamBash-App
-   region: us-west-2
-   on:
-     branch: feature/feature-3-data-ingestor
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: sga-teambash
+    key: TeamBash_DataIngestor.zip
+    bundle_type: zip
+    application: TeamBash-App
+    deployment_group: TeamBash-App
+    region: us-west-2
+    on:
+      branch: feature/feature-3-data-ingestor
 
