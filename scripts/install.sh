@@ -5,4 +5,4 @@ pip install requests
 pip install Flask
 pip install boto
 export FLASK_APP=DataIngestor.py
-flask run --host=0.0.0.0 --port=65000 >> teambash.log 2>&1 &
+flask run --host=0.0.0.0 --port=35000 >> teambash.log 2>&1 &

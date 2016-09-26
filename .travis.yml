@@ -11,11 +11,11 @@ notifications:
   email:
     - srameshv@indiana.edu
 
-sudo: true
+sudo: false
 
 install: true
 
-script: cd "DataIngestor" && python DataIngestorTest.py &
+script: cd "core/python/DataIngestor" && python DataIngestorTest.py &
 
 before_deploy:
   - cd ../../../
