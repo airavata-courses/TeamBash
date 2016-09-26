@@ -43,6 +43,6 @@ deploy:
     bundle_type: zip
     application: TeamBash-App
     deployment_group: TeamBash-App
-    region: us-west-2b
+    region: us-east-1
     on:
       branch: feature/feature-14-registry
