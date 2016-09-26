@@ -45,4 +45,4 @@ deploy:
     deployment_group: TeamBash-App
     region: us-west-2
     on:
-      branch: feature/feature-14-apigateway
+      branch: feature/feature-10-apigateway
