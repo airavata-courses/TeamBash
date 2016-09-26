@@ -2,13 +2,13 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user
+    destination: /home/ec2-user/DataIngestor
 hooks:
   BeforeInstall:
-    - location: scripts/DataIngestor/before-install.sh
+    - location: scripts/before-install.sh
       timeout: 3600
       runas: root
   ApplicationStart:
-    - location: scripts/DataIngestor/install.sh
+    - location: scripts/install.sh
       timeout: 3600
       runas: root

@@ -11,15 +11,15 @@ notifications:
   email:
     - srameshv@indiana.edu
 
-sudo: true
+sudo: false
 
-install:
-  - pip install -r "DataIngestor/requirements.txt"
+install: true
 
 script: cd "DataIngestor" && python DataIngestor.py &
 
 before_deploy:
-  - zip -r TeamBash_DataIngestor.zip DataIngestor scripts appspec.yml || true
+  - cd ../../../
+  - zip -r TeamBash_DataIngestor.zip core/python/DataIngestor scripts appspec.yml || true
   - mkdir -p "dataIngestor"
   - mv TeamBash_DataIngestor.zip dataIngestor/TeamBash_DataIngestor.zip || true
 
