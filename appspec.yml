@@ -5,10 +5,10 @@ files:
     destination: /home/ec2-user/registryService
 hooks:
   BeforeInstall:
-    - location: registryService/scripts/before-install.sh
+    - location: scripts/before-install.sh
       timeout: 3600
       runas: root
   ApplicationStart:
-    - location: registryService/scripts/install.sh
+    - location: scripts/install.sh
       timeout: 180
       runas: root
