@@ -18,7 +18,6 @@ install: true
 script: nosetests
 
 before_deploy:
-  - cd ..
   - zip -r TeamBash_DataIngestor.zip core/python/DataIngestor scripts appspec.yml || true
   - mkdir -p "dataIngestor_upload"
   - mv TeamBash_DataIngestor.zip dataIngestor_upload/TeamBash_DataIngestor.zip || true
