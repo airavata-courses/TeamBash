@@ -12,7 +12,7 @@ notifications:
     - rraavi@indiana.edu
     - srameshv@indiana.edu
 
-sudo: true
+sudo: false
 
 install:
   - cd stormDetection
