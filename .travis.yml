@@ -15,24 +15,24 @@ notifications:
 sudo: true
 
 install:
-  - cd core/python/stormDetection
+  - cd stormDetection
   - pip install Flask
 
 script: nosetests
 
 before_deploy:
   - cd ..
-  - zip -r TeamBash_stormDetection.zip stormDetection || true
-  - mkdir -p "dpl_cd_upload2"
-  - mv TeamBash_stormDetection.zip dpl_cd_upload2/TeamBash_stormDetection.zip || true
+  - zip -r TeamBash_stormDetection.zip stormDetection scripts appspec.yml || true
+  - mkdir -p "stormDetection"
+  - mv TeamBash_stormDetection.zip stormDetection/TeamBash_stormDetection.zip || true
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: team-bash
-    local_dir: dpl_cd_upload2
-    region: us-east-1
+    bucket: sga-teambash
+    local_dir: stormDetection
+    region: us-west-2
     skip_cleanup: true
     acl: public_read
     detect_encoding: true
@@ -42,7 +42,7 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: team-bash
+    bucket: sga-teambash
     key: TeamBash_stormDetection.zip
     bundle_type: zip
     application: TeamBash-App
