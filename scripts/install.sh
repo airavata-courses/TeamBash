@@ -7,5 +7,5 @@ virtualenv venv
 . venv/bin/activate
 pip install Flask
 export FLASK_APP=stormDetection.py 
-flask run --host=0.0.0.0 --port=34000
+nohup flask run --host=0.0.0.0 --port=34000 &
 
