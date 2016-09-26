@@ -2,7 +2,7 @@ echo 'killing existing process on ports 9000/9001 if any'
 fuser -k 9000/tcp
 fuser -k 9001/tcp
 sleep 20
-export JAVA_HOME=/usr/java/jdk1.8.0_45/jre
+export JAVA_HOME=/usr/lib/jvm/jre
 echo 'check if maven is installed'
 mvn --version
 if [ "$?" -ne 0 ]; then
