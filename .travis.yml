@@ -11,7 +11,7 @@ notifications:
   email:
     - srameshv@indiana.edu
 
-sudo: false
+sudo: true
 
 install: true
 
