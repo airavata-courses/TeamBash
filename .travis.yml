@@ -11,7 +11,7 @@ notifications:
   email:
     - srameshv@indiana.edu
 
-sudo: true
+sudo: false
 
 install:
   - pip install -r core/python/DataIngestor/requirements.txt
@@ -19,21 +19,33 @@ install:
 script: cd "core/python/DataIngestor" && python DataIngestorTest.py
 
 before_deploy:
-  - cd ..
-  - zip -r TeamBash_DataIngestor.zip DataIngestor || true
+  - cd ../../../
+  - zip -r TeamBash_DataIngestor.zip core/python/DataIngestor scripts appspec.yml || true
   - mkdir -p "dpl_cd_upload1"
   - mv TeamBash_DataIngestor.zip dpl_cd_upload1/TeamBash_DataIngestor.zip || true
+
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: team-bash
+    bucket: sga-teambash
     local_dir: dpl_cd_upload1
-    region: us-east-1
+    region: us-west-2
     skip_cleanup: true
     acl: public_read
     detect_encoding: true
     on:
       branch: feature/feature-3-data-ingestor
-
+ 
+ - provider: codedeploy
+   access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+   secret_access_key: $AWS_SECRET_KEY
+   bucket: sga-teambash
+   key: TeamBash_DataIngestor.zip
+   bundle_type: zip
+   application: TeamBash-App
+   deployment_group: TeamBash-App
+   region: us-west-2
+   on:
+     branch: feature/feature-3-data-ingestor
 
