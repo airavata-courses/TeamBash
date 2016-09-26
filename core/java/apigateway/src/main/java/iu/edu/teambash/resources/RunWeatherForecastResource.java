@@ -1,17 +1,11 @@
 package iu.edu.teambash.resources;
 
-import io.dropwizard.jersey.PATCH;
 import iu.edu.teambash.StringConstants;
-import org.glassfish.jersey.client.JerseyClientBuilder;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.container.ResourceContext;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 

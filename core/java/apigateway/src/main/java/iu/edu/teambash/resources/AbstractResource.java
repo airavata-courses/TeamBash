@@ -8,7 +8,6 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by janakbhalla on 25/09/16.
@@ -27,7 +26,7 @@ public class AbstractResource {
             Client client = new JerseyClientBuilder().build();
             Response response = client.target(url).request(request).accept(accept).method(method, em);
             return response;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

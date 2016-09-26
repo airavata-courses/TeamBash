@@ -19,7 +19,7 @@ public class RegistryResource {
 
     @GET
     @Path("/displayData/{uid}")
-    public Response displayData(@PathParam("uid") int uid){
+    public Response displayData(@PathParam("uid") int uid) {
         URI uri = UriBuilder.fromUri(StringConstants.REGISTRY + "displayData/" + uid).build();
         return Response.seeOther(uri).build();
     }

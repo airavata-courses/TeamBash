@@ -12,13 +12,13 @@ notifications:
     - jbhalla@indiana.edu
 jdk:
   - oraclejdk8
-sudo: false
+sudo: true
 install: true
 script: cd "core/java/apigateway" && mvn clean install -DskipTests=true
 
 before_deploy:
-  - cd ..
-  - zip -r TeamBash_apigateway.zip apigateway scripts appspec.yml || true
+  - cd ../../../
+  - zip -r TeamBash_apigateway.zip core/java/apigateway scripts appspec.yml || true
   - mkdir -p "apigateway_upload"
   - mv TeamBash_apigateway.zip apigateway_upload/TeamBash_apigateway.zip || true
 
@@ -26,9 +26,9 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: team-bash
+    bucket: sga-teambash
     local_dir: apigateway_upload
-    region: us-east-1
+    region: us-west-2
     skip_cleanup: true
     acl: public_read
     detect_encoding: true
@@ -38,7 +38,7 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: team-bash
+    bucket: sga-teambash
     key: TeamBash_apigateway.zip
     bundle_type: zip
     application: TeamBash-App

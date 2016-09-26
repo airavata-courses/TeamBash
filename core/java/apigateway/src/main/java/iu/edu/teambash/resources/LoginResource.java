@@ -16,7 +16,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -33,7 +32,7 @@ public class LoginResource {
                 .credentials(user.getUsername(), user.getPassword())
                 .build();
         ClientConfig clientConfig = new ClientConfig();
-        clientConfig.register(feature) ;
+        clientConfig.register(feature);
         Client client = JerseyClientBuilder.createClient(clientConfig);
         return client.target(StringConstants.LOGIN).request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(null);
 
