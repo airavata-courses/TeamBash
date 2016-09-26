@@ -20,7 +20,7 @@ install:
 - npm install
 
 before_deploy:
-  - cd ../../..
+  - cd ../../../
   - zip -r RunWeatherForecast.zip core/javascript/runWeatherForecast scripts appspec.yml || true
   - mkdir -p "teambash"
   - mv RunWeatherForecast.zip teambash/RunWeatherForecast.zip || true
