@@ -14,7 +14,9 @@ notifications:
 
 sudo: false
 
-install:
+install: true
+
+before_script:
   - cd stormDetection
   - pip install Flask
 
