@@ -1,3 +1,5 @@
 echo "killing any pre existing processes at port"
 
-kill -9 $(lsof -t -i:65000)
+fuser -k 65000/tcp
+
+sleep 20
