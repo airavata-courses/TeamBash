@@ -1,0 +1,47 @@
+INFO  [2016-09-26 19:45:01,152] org.eclipse.jetty.util.log: Logging initialized @1376ms
+INFO  [2016-09-26 19:45:01,235] io.dropwizard.server.DefaultServerFactory: Registering jersey handler with root path prefix: /
+INFO  [2016-09-26 19:45:01,235] io.dropwizard.server.DefaultServerFactory: Registering admin handler with root path prefix: /
+INFO  [2016-09-26 19:45:01,404] org.hibernate.Version: HHH000412: Hibernate Core {5.1.0.Final}
+INFO  [2016-09-26 19:45:01,405] org.hibernate.cfg.Environment: HHH000206: hibernate.properties not found
+INFO  [2016-09-26 19:45:01,406] org.hibernate.cfg.Environment: HHH000021: Bytecode provider name : javassist
+INFO  [2016-09-26 19:45:01,415] io.dropwizard.hibernate.SessionFactoryFactory: Entity classes: [iu.edu.teambash.core.LogEntity, iu.edu.teambash.core.UsersEntity]
+INFO  [2016-09-26 19:45:01,443] org.hibernate.annotations.common.Version: HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+INFO  [2016-09-26 19:45:09,769] org.hibernate.dialect.Dialect: HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+INFO  [2016-09-26 19:45:10,005] org.hibernate.type.BasicTypeRegistry: HHH000270: Type registration [java.util.Currency] overrides previous : org.hibernate.type.CurrencyType@10ee04df
+INFO  [2016-09-26 19:45:10,148] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator: HHH000397: Using ASTQueryTranslatorFactory
+INFO  [2016-09-26 19:45:10,245] io.dropwizard.server.DefaultServerFactory: Registering jersey handler with root path prefix: /
+INFO  [2016-09-26 19:45:10,246] io.dropwizard.server.DefaultServerFactory: Registering admin handler with root path prefix: /
+INFO  [2016-09-26 19:45:10,247] io.dropwizard.server.ServerFactory: Starting APIGateway
+INFO  [2016-09-26 19:45:10,345] org.eclipse.jetty.setuid.SetUIDListener: Opened application@42ea287{HTTP/1.1,[http/1.1]}{0.0.0.0:9999}
+INFO  [2016-09-26 19:45:10,345] org.eclipse.jetty.setuid.SetUIDListener: Opened admin@78cd163b{HTTP/1.1,[http/1.1]}{0.0.0.0:9998}
+INFO  [2016-09-26 19:45:10,346] org.eclipse.jetty.server.Server: jetty-9.3.z-SNAPSHOT
+INFO  [2016-09-26 19:45:10,892] io.dropwizard.jersey.DropwizardResourceConfig: The following paths were found for the configured resources:
+
+    POST    /loginUser (iu.edu.teambash.resources.LoginResource)
+    GET     /registry/displayData/{uID} (iu.edu.teambash.resources.DisplayData)
+    POST    /registry/endLog/{lID} (iu.edu.teambash.resources.DisplayData)
+    POST    /registry/startLog/{uID}/{mID} (iu.edu.teambash.resources.DisplayData)
+
+INFO  [2016-09-26 19:45:10,893] org.eclipse.jetty.server.handler.ContextHandler: Started i.d.j.MutableServletContextHandler@17043b04{/,null,AVAILABLE}
+INFO  [2016-09-26 19:45:10,897] io.dropwizard.setup.AdminEnvironment: tasks = 
+
+    POST    /tasks/log-level (io.dropwizard.servlets.tasks.LogConfigurationTask)
+    POST    /tasks/gc (io.dropwizard.servlets.tasks.GarbageCollectionTask)
+
+INFO  [2016-09-26 19:45:10,900] org.eclipse.jetty.server.handler.ContextHandler: Started i.d.j.MutableServletContextHandler@1dcedc93{/,null,AVAILABLE}
+INFO  [2016-09-26 19:45:10,910] org.eclipse.jetty.server.AbstractConnector: Started application@42ea287{HTTP/1.1,[http/1.1]}{0.0.0.0:9999}
+INFO  [2016-09-26 19:45:10,911] org.eclipse.jetty.server.AbstractConnector: Started admin@78cd163b{HTTP/1.1,[http/1.1]}{0.0.0.0:9998}
+INFO  [2016-09-26 19:45:10,911] org.eclipse.jetty.server.Server: Started @11136ms
+INFO  [2016-09-26 19:45:42,013] org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: Session Metrics {
+    51128 nanoseconds spent acquiring 1 JDBC connections;
+    0 nanoseconds spent releasing 0 JDBC connections;
+    9282495 nanoseconds spent preparing 1 JDBC statements;
+    83832005 nanoseconds spent executing 1 JDBC statements;
+    0 nanoseconds spent executing 0 JDBC batches;
+    0 nanoseconds spent performing 0 L2C puts;
+    0 nanoseconds spent performing 0 L2C hits;
+    0 nanoseconds spent performing 0 L2C misses;
+    3532490 nanoseconds spent executing 1 flushes (flushing a total of 8 entities and 0 collections);
+    49515 nanoseconds spent executing 1 partial-flushes (flushing a total of 0 entities and 0 collections)
+}
+0:0:0:0:0:0:0:1 - - [26/Sep/2016:19:45:42 +0000] "GET /registry/displayData/3 HTTP/1.1" 200 579 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36" 517
