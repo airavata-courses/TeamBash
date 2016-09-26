@@ -5,10 +5,10 @@ files:
     destination: /home/ec2-user
 hooks:
   BeforeInstall:
-    - location: scripts/before-install.sh
+    - location: scripts/DataIngestor/before-install.sh
       timeout: 3600
       runas: root
   ApplicationStart:
-    - location: scripts/install.sh
+    - location: scripts/DataIngestor/install.sh
       timeout: 3600
       runas: root

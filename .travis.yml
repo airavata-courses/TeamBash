@@ -14,12 +14,11 @@ notifications:
 sudo: true
 
 install:
-  - pip install -r DataIngestor/requirements.txt
+  - pip install -r "DataIngestor/requirements.txt"
 
-script: cd "DataIngestor" && python DataIngestorTest.py
+script: cd "DataIngestor" && python DataIngestor.py &
 
 before_deploy:
-  - cd ..
   - zip -r TeamBash_DataIngestor.zip DataIngestor scripts appspec.yml || true
   - mkdir -p "dataIngestor"
   - mv TeamBash_DataIngestor.zip dataIngestor/TeamBash_DataIngestor.zip || true
@@ -35,6 +34,7 @@ deploy:
     acl: public_read
     detect_encoding: true
     on:
+      repo: airavata-courses/TeamBash 
       branch: feature/feature-3-data-ingestor
  
   - provider: codedeploy
@@ -47,5 +47,6 @@ deploy:
     deployment_group: TeamBash-App
     region: us-west-2
     on:
+      repo: airavata-courses/TeamBash
       branch: feature/feature-3-data-ingestor
 
