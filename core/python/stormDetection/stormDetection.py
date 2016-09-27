@@ -1,6 +1,5 @@
 from flask import Flask, jsonify
 import random
-import urllib.request as read
 
 app = Flask(__name__)
 
@@ -11,7 +10,7 @@ def stormDetection(yy=None, mm=None, dd=None, stationId=None, filename=None):
 
     if yy and mm and dd and stationId and filename:
         url = 'https://noaa-nexrad-level2.s3.amazonaws.com/' + yy + '/' + mm + '/' + dd + '/' + stationId + '/' + filename + '.gz'
-        data = read.urlopen(url).read()
+        #data = read.urlopen(url).read()
         flag = random.getrandbits(1)
         if flag:
             result = '''<?xml version="1.0" encoding="UTF-8"?>
