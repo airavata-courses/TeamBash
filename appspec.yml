@@ -1,8 +1,10 @@
 version: 0.0
 os: linux
+
 files:
   - source: /
     destination: /home/ec2-user/DataIngestor
+
 hooks:
   BeforeInstall:
     - location: scripts/before-install.sh
