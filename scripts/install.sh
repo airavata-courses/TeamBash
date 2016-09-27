@@ -1,5 +1,6 @@
 echo 'starting the installation' >> debug.log
 
+rm -r /home/ec2-user/forecastTrigger
 mv /home/ec2-user/ForecastTrigger /home/ec2-user/forecastTrigger
 cd '/home/ec2-user/forecastTrigger/core/javascript/ForecastTrigger'
 
