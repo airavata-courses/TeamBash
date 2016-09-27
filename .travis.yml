@@ -7,6 +7,9 @@ branches:
   only:
     - feature/feature-3-data-ingestor
 
+install:
+   - pip install -r "core/python/DataIngestor/requirements.txt"
+
 notifications:
   email:
     - srameshv@indiana.edu
