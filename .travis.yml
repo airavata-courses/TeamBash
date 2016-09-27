@@ -7,20 +7,20 @@ branches:
   only:
     - feature/feature-3-data-ingestor
 
-install:
-   - pip install -r "core/python/DataIngestor/requirements.txt"
+install: true
 
 notifications:
   email:
     - srameshv@indiana.edu
 
-sudo: true
+sudo: false
 
 install: true
 
 script: nosetests
 
 before_deploy:
+  - cd ../../../
   - zip -r TeamBash_DataIngestor.zip core/python/DataIngestor scripts appspec.yml || true
   - mkdir -p "dataIngestor_upload"
   - mv TeamBash_DataIngestor.zip dataIngestor_upload/TeamBash_DataIngestor.zip || true
