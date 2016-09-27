@@ -15,16 +15,9 @@ Build Status - Develop : [![Build Status](https://travis-ci.org/airavata-courses
 Instructions Manual
 --------------
 
-Prerequisites
-^^^^^^^^^^^^^^^^^^^^^
+We have created our Microservices in seperate feature branches.
 
+These feature branches have their own seperate travis files, which will upload the artifact to S3 bucket and then will be deployed to the EC-2 instances.
 
-Tools used
-^^^^^^^^^^^^^^^^^^^^^
-
-Description
-^^^^^^^^^^^^^^^^^^^^^
-
-Docker
-^^^^^^
+We have not merged our feature branches to either develop or the master.
 
