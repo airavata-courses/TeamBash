@@ -1,4 +1,4 @@
-echo 'starting installation process'
+echo 'sstarting installation process'
 rm -r /home/ec2-user/dataIngestor
 mv /home/ec2-user/DataIngestor  /home/ec2-user/dataIngestor
 cd /home/ec2-user/dataIngestor/core/python/
