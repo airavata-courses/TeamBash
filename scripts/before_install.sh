@@ -1,2 +1,2 @@
 echo 'killing existing Django process if any'
-kill $(ps auxw | grep runserver)
+fuser -k 8080/tcp
