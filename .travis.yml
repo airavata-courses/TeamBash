@@ -23,7 +23,7 @@ before_script:
 script: nosetests
 
 before_deploy:
-  - cd ..
+  - cd ../../../
   - zip -r TeamBash_stormDetection.zip core/python/stormDetection scripts appspec.yml || true
   - mkdir -p "stormDetection"
   - mv TeamBash_stormDetection.zip stormDetection/TeamBash_stormDetection.zip || true
