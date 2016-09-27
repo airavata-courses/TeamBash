@@ -1,9 +1,12 @@
-cd '/home/ec2-user/runWeatherForecast/core/javascript/runWeatherForecast'
+echo 'starting the installation' >> debug.log
 
-echo "installing the dependencies from package.json"
+mv /home/ec2-user/runWeatherForecast /home/ec2-user/RunWeatherForecast
+cd '/home/ec2-user/runWeatherForecast/core/javascript/RunWeatherForecast'
 
-npm install
+echo "installing the dependencies from package.json" >> debug.log
 
-echo "starting the application run weather forecast"
+npm install >> debug.log
 
-PORT=65000 npm start >> debug.log 2>&1 &
+echo "starting the application run weather forecast" >> debug.log
+
+PORT=8200 npm start >> debug.log 2>&1 &
