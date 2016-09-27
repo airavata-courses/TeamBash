@@ -9,5 +9,5 @@ cd /home/ec2-user/ui/core/UI/SampleWeb
 sudo pip uninstall Django
 sudo pip install Django==1.10.1
 sudo pip install httplib2
-python manage.py runserver 0.0.0.0:9001 > /dev/null 2> /dev/null < /dev/null &
+python manage.py runserver 0.0.0.0:9001 >>DjangoUi.log > /dev/null 2> /dev/null < /dev/null &
 
