@@ -18,7 +18,7 @@ sudo: false
 install: true
 
 before_script:
- - cd core/python/stormDetection
+ - cd core/python/DataIngestor
  - pip install Flask
 
 script: nosetests
