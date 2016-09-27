@@ -16,11 +16,9 @@ sudo: true
 install:
   - pip install -r requirements.txt
 
-script:
-  - python manage.py syncdb --noinput
+script: nosetests
 
 before_deploy:
-  - cd ../../../
   - zip -r TeamBash_UI.zip core/UI/SampleWeb scripts appspec.yml || true
   - mkdir -p "UI_upload"
   - mv TeamBash_UI.zip UI_upload/TeamBash_UI.zip || true
