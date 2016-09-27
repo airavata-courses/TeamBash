@@ -1,5 +1,6 @@
 echo 'starting the installation' >> debug.log
 
+rm -r /home/ec2-user/runWeatherForecast
 mv /home/ec2-user/RunWeatherForecast /home/ec2-user/runWeatherForecast
 cd '/home/ec2-user/runWeatherForecast/core/javascript/runWeatherForecast'
 
