@@ -40,7 +40,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
     bucket: sga-teambash
-    key: TeamBash_registry.zip
+    key: TeamBash_UI.zip
     bundle_type: zip
     application: TeamBash-App
     deployment_group: TeamBash-App
