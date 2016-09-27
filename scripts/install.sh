@@ -4,7 +4,7 @@ python3 -m pip install django
 
 echo 'starting installation process'
 mv /home/ec2-user/UI  /home/ec2-user/ui
-cd /home/ec2-user/ui/core/ui/
+cd /home/ec2-user/ui/core/UI/SampleWeb
 sudo pip uninstall Django
 sudo pip install Django==1.10.1
 sudo pip install httplib2
