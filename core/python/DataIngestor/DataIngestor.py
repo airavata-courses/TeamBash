@@ -43,7 +43,7 @@ def generateMyURL(yy, mm, dd, stationId):
 
 @app.errorhandler(404)
 def invalidArguments(e):
-    return jsonify({'Error-Message': 'Invalid arguments!!! Records does not exist'})
+    return 'Error-Message Invalid arguments!!! Records does not exist' ,206
 
 
 # We only need this for local development.
