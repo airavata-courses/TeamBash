@@ -57,7 +57,7 @@ public class DisplayData {
 
         //Stores the new row
         LogEntity logEntity = logDao.create(newLog);
-        return Response.ok(logEntity).build();
+        return Response.ok(logEntity.getlId()).build();
     }
 
     @POST
