@@ -15,9 +15,9 @@ import javax.ws.rs.core.Response;
 public class AbstractResource {
 
     protected Response invokeRemoteService(int id, int uid, String url, String request, String accept, String method, Entity em) {
-        int logId = Integer.valueOf(invokeService(StringConstants.REGISTRY + uid, MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON, HttpMethod.POST, null).readEntity(String.class));
+        int logId = Integer.valueOf(invokeService(StringConstants.REGISTRY + "startLog/" + uid + "/" + id, MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON, HttpMethod.POST, null).readEntity(String.class));
         Response response = invokeService(url, request, accept, method, em);
-        invokeService(StringConstants.REGISTRY + logId, MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON, HttpMethod.POST, null);
+        invokeService(StringConstants.REGISTRY + "endLog/" + logId, MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON, HttpMethod.POST, null);
         return response;
     }
 
