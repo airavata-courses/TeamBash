@@ -23,7 +23,7 @@ def loginAPI(request):
 
     h = httplib2.Http()
     resp, content = h.request(
-        uri='http://52.25.123.69:8888/loginUser',
+        uri='http://localhost:8888/loginUser',
         method='POST',
         headers={'Content-Type': 'application/json; charset=UTF-8'},
         body=json.dumps(context),
@@ -41,7 +41,7 @@ def getStats(request):
     }
 
     body = urllib.urlencode(context)
-    resp, content = h.request("http://http://52.25.123.69:8888/registry/displayData/"+str(userid), method="GET", body=body)
+    resp, content = h.request("http://localhost:8888/registry/displayData/"+str(userid), method="GET", body=body)
 
     return render(request, 'Login/login.html', {})
 
