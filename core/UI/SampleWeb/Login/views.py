@@ -23,7 +23,7 @@ def loginAPI(request):
 
     h = httplib2.Http()
     resp, content = h.request(
-        uri='http://149.161.139.163:8080/loginUser',
+        uri='http://52.25.123.69:8888/loginUser',
         method='POST',
         headers={'Content-Type': 'application/json; charset=UTF-8'},
         body=json.dumps(context),
@@ -41,7 +41,7 @@ def getStats(request):
     }
 
     body = urllib.urlencode(context)
-    resp, content = h.request("http://149.161.139.163:8080/registry/displayData/"+str(userid), method="GET", body=body)
+    resp, content = h.request("http://http://52.25.123.69:8888/registry/displayData/"+str(userid), method="GET", body=body)
 
     return render(request, 'Login/login.html', {})
 
@@ -140,7 +140,7 @@ def hit(request):
                 stationCode = stationCodeDict[key]
                 break
         h = httplib2.Http()
-        response, content=h.request("http://149.161.139.163:8080/dataIngestor/" +str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
+        response, content=h.request("http://http://52.25.123.69:8888//dataIngestor/"+str(userid) +str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
         if content == 'false':
             return render(request, 'Login/falseForecast.html')
         elif response['status']=='206':
