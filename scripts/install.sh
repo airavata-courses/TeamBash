@@ -1,5 +1,6 @@
-echo 'starting installation process' 
-cd '/home/ec2-user/DataIngestor/core/python/DataIngestor'
+echo 'starting installation process'
+mv /home/ec2-user/DataIngestor  /home/ec2-user/dataIngestor
+cd '/home/ec2-user/dataIngestor/core/python/DataIngestor'
 
 sudo su
 pip install requests
