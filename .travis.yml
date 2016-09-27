@@ -3,16 +3,22 @@ language: python
 python:
   - 2.7
   - 3.4
+branches:
+  only:
+    - feature/feature-11-UI
 
-env:
-  - DJANGO=1.10.1
+notifications:
+  email:
+    - srameshv@indiana.edu
+
+sudo: true
 
 before_install:
   - export PYTHONPATH=/usr/lib/python2.7
   - export PIP_USE_MIRRORS=true
 
 install:
-  - pip install django==$DJANGO --quiet
+  - pip install -r requirements.txt
 
 script:
   - python manage.py syncdb --noinput
