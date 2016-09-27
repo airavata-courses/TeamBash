@@ -1,0 +1,49 @@
+language: python
+
+python:
+  - 2.7
+  - 3.4
+
+env:
+  - DJANGO=1.10.1
+
+before_install:
+  - export PYTHONPATH=/usr/lib/python2.7
+  - export PIP_USE_MIRRORS=true
+
+install:
+  - pip install django==$DJANGO --quiet
+
+script:
+  - python manage.py syncdb --noinput
+
+before_deploy:
+  - cd ../../../
+  - zip -r TeamBash_UI.zip core/UI/SampleWeb scripts appspec.yml || true
+  - mkdir -p "UI_upload"
+  - mv TeamBash_UI.zip UI_upload/TeamBash_UI.zip || true
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: sga-teambash
+    local_dir: UI_upload
+    region: us-west-2
+    skip_cleanup: true
+    acl: public_read
+    detect_encoding: true
+    on:
+      branch: feature/feature-11-UI
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: sga-teambash
+    key: TeamBash_registry.zip
+    bundle_type: zip
+    application: TeamBash-App
+    deployment_group: TeamBash-App
+    region: us-west-2
+    on:
+      branch: feature/feature-11-UI

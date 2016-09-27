@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/UI
+hooks:
+  BeforeInstall:
+    - location: scripts/before-install.sh
+      timeout: 180
+      runas: root
+  ApplicationStart:
+    - location: scripts/before-install.sh
+      timeout: 180
+      runas: root
+
