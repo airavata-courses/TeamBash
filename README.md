@@ -21,3 +21,16 @@ These feature branches have their own seperate travis files, which will upload t
 
 We have not merged our feature branches to either develop or the master.
 
+While deploying the code to a new instance, edit and update the .travis.yml file and launch it. In future, if we were to deploy in individual EC-2 instances, we have to update the .travis.yml
+
+Branch list for each Microservice
+--------------
+* Microservice A - Registry : https://github.com/airavata-courses/TeamBash/tree/feature/feature-14-registry
+* Microservice B - Data Ingestor : https://github.com/airavata-courses/TeamBash/tree/feature/feature-3-data-ingestor
+* Microservice C - Storm Detection : https://github.com/airavata-courses/TeamBash/tree/feature/feature-4-storm-detection
+* Microservice D - Storm Clustering : https://github.com/airavata-courses/TeamBash/tree/feature/feature-5-storm-clustering
+* Microservice E - Forecast Trigger : https://github.com/airavata-courses/TeamBash/tree/feature/feature-13-forecast-trigger
+* Microservice F - Run Weather Forecast : https://github.com/airavata-courses/TeamBash/tree/feature/feature-15-run-weather-forecast
+
+* UI Branch : https://github.com/airavata-courses/TeamBash/tree/feature/feature-11-UI
+* API Gateway Branch : https://github.com/airavata-courses/TeamBash/tree/feature/feature-10-apigateway
