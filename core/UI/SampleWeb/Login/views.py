@@ -143,7 +143,7 @@ def hit(request):
                 break
         h = httplib2.Http()
         print("http://52.25.123.69:8888/dataIngestor/3/" +str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
-        response, content= h.request("http://52.25.123.69:8888/dataIngestor/3"+str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
+        response, content= h.request("http://52.25.123.69:8888/dataIngestor/3/"+str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
 
         print(content,"BY JANAK",response)
 
