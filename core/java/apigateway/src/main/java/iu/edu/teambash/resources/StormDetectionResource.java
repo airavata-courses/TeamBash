@@ -29,9 +29,6 @@ public class StormDetectionResource extends AbstractResource {
     @Timed
     public Response redirect(@PathParam("url") String url, @PathParam("uid") int uid) {
         Response response = invokeRemoteService(2, uid, StringConstants.STORM_DETECTION + url, MediaType.APPLICATION_XML, MediaType.APPLICATION_XML, HttpMethod.GET, null);
-        if (response.getStatus() == 206) {
-            return Response.status(response.getStatus()).build();
-        }
         String kml = response.readEntity(String.class);
         StormClusteringResource resourceB = rc.getResource(StormClusteringResource.class);
         return resourceB.redirect(kml, uid);

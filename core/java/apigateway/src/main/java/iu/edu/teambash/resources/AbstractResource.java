@@ -4,6 +4,7 @@ import iu.edu.teambash.StringConstants;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 
 import javax.ws.rs.HttpMethod;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
@@ -18,17 +19,14 @@ public class AbstractResource {
         int logId = Integer.valueOf(invokeService(StringConstants.REGISTRY + "startLog/" + uid + "/" + id, MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON, HttpMethod.POST, null).readEntity(String.class));
         Response response = invokeService(url, request, accept, method, em);
         invokeService(StringConstants.REGISTRY + "endLog/" + logId, MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON, HttpMethod.POST, null);
+        if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+            throw new WebApplicationException(url, response.getStatus());
+        }
         return response;
     }
 
     protected Response invokeService(String url, String request, String accept, String method, Entity em) {
-        try {
-            Client client = new JerseyClientBuilder().build();
-            Response response = client.target(url).request(request).accept(accept).method(method, em);
-            return response;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        Client client = new JerseyClientBuilder().build();
+        return client.target(url).request(request).accept(accept).method(method, em);
     }
 }

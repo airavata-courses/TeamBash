@@ -27,11 +27,6 @@ public class StormClusteringResource extends AbstractResource {
     public Response redirect(String kml, @PathParam("uid") int uid) {
         Response response = invokeRemoteService(3, uid, StringConstants.STORM_CLUSTERING, MediaType.APPLICATION_XML, MediaType.APPLICATION_XML, HttpMethod.GET, null);
 
-        if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
-        }
-
         String cluster = response.readEntity(String.class);
         ForecastTriggerResource forecastTriggerResource = rc.getResource(ForecastTriggerResource.class);
         return forecastTriggerResource.redirect(cluster, uid);

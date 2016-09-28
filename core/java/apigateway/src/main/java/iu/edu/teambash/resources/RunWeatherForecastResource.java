@@ -18,13 +18,7 @@ public class RunWeatherForecastResource extends AbstractResource {
 
     @GET
     public Response redirect(@PathParam("uid") int uid) {
-        Response response = invokeRemoteService(5, uid, StringConstants.RUN_FORECAST, MediaType.APPLICATION_XML, MediaType.APPLICATION_XML, HttpMethod.GET, null);
-
-        if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
-        }
-        return response;
+        return invokeRemoteService(5, uid, StringConstants.RUN_FORECAST, MediaType.APPLICATION_XML, MediaType.APPLICATION_XML, HttpMethod.GET, null);
     }
 
 

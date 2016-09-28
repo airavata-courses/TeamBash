@@ -32,11 +32,6 @@ public class DataIngestorResource extends AbstractResource {
 
         Response response = invokeRemoteService(1, uid, StringConstants.DATA_INGESTOR + year + "/" + month + "/" + date + "/" + station, MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON, HttpMethod.GET, null);
 
-        if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
-        }
-
         String url = response.readEntity(String.class);
         StormDetectionResource stormDetectionResource = rc.getResource(StormDetectionResource.class);
         return stormDetectionResource.redirect(url, uid);

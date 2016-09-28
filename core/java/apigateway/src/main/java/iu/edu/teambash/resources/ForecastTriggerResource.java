@@ -26,14 +26,10 @@ public class ForecastTriggerResource extends AbstractResource {
     @POST
     @Timed
     public Response redirect(String cluster, @PathParam("uid") int uid) {
-        Response response = invokeRemoteService(4, uid, StringConstants.FORECAST_TRIGGER, MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON, HttpMethod.POST, Entity.entity(cluster, MediaType.APPLICATION_JSON));
-
-        if (response.getStatus() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + response.getStatus());
-        }
-
+        Response response = invokeRemoteService(4, uid, StringConstants.FORECAST_TRIGGER, MediaType.TEXT_HTML, MediaType.TEXT_HTML, HttpMethod.POST, Entity.entity(cluster, MediaType.APPLICATION_XML));
         Boolean forecastTrigger = Boolean.valueOf(response.readEntity(String.class));
+        if (!forecastTrigger)
+            return Response.ok(forecastTrigger).build();
         RunWeatherForecastResource runWeatherForecastResource = rc.getResource(RunWeatherForecastResource.class);
         return runWeatherForecastResource.redirect(uid);
     }
