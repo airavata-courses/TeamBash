@@ -141,7 +141,9 @@ def hit(request):
                 stationCode = stationCodeDict[key]
                 break
         h = httplib2.Http()
-        response, content=h.request("http://http://52.25.123.69:8888//dataIngestor/"+str(userid) +str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
+
+        response, content=h.request("http://52.25.123.69:8888/dataIngestor/"+str(userid) +str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
+        print(content)
         if content == 'false':
             return render(request, 'Login/falseForecast.html')
         elif response['status']=='206':
