@@ -32,6 +32,7 @@ def loginAPI(request):
     if resp['status'] == '401':
         return render(request, 'Login/401.html', {})
     userid = content
+    print("userid", userid)
     return redirect('Login:weatherForm')
 
 def getStats(request):
@@ -41,7 +42,7 @@ def getStats(request):
     }
 
     body = urllib.urlencode(context)
-    resp, content = h.request("http://52.25.123.69:8888/registry/displayData/"+str(userid), method="GET", body=body)
+    resp, content = h.request("http://52.25.123.69:8888/registry/displayData/3", method="GET", body=body)
 
     return render(request, 'Login/login.html', {})
 
@@ -71,7 +72,7 @@ def weatherForm(request):
 
 
 def hit(request):
-    stationCodeDict = {'Aberdeen, SD ': 'KABR', 'Tulsa, OK': 'KSGF', 'Milwaukee, WI': 'KAMX',
+    stationCodeDict = {'Aberdeen, SD ': 'KVBX', 'Tulsa, OK': 'KSGF', 'Milwaukee, WI': 'KAMX',
                        'Columbus AFB, MS': 'KCLE', 'Rapid City, SD': 'KGYX',
                        'El Paso, TX': 'KDYX', 'Bismarck, ND': 'KBMX', 'Caribou, ME': 'KCXX', 'Sioux Falls, SD': 'KNKX',
                        'Paducah, KY': 'KLNX', 'San Joaquin Valley, CA': 'KDAX', 'Amarillo, TX': 'KAMA',
@@ -84,7 +85,7 @@ def hit(request):
                        'Omaha, NE': 'FAA', 'Jackson, KY': 'KHGX', 'Northwest Florida/Eglin AFB, FL': 'KLIX',
                        'Spokane, WA': 'FAA',
                        'Dodge City, KS': 'KDMX', 'Tampa Bay, FL': 'FAA', 'North Platte, NE': 'KMHX',
-                       'Albuquerque, NM': 'KABX',
+                       'Albuquerque, NM': 'KVBX',
                        'Ft Worth, TX': 'KFDR', 'Grand Junction, CO': 'KGGW', 'Houston, TX': 'KGSP',
                        'Medford, OR': 'KLBB',
                        'Sterling, VA': 'KFSD', 'Shreveport, LA': 'KEWX', 'Marquette, MI': 'KVTX',
@@ -141,9 +142,11 @@ def hit(request):
                 stationCode = stationCodeDict[key]
                 break
         h = httplib2.Http()
+        print("http://52.25.123.69:8888/dataIngestor/3/" +str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
+        response, content= h.request("http://52.25.123.69:8888/dataIngestor/"+str(userid) +str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
 
-        response, content=h.request("http://52.25.123.69:8888/dataIngestor/"+str(userid) +str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
-        print(content)
+        print(content,"BY JANAK",response)
+
         if content == 'false':
             return render(request, 'Login/falseForecast.html')
         elif response['status']=='206':
