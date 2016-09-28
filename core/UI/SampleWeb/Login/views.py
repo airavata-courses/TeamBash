@@ -28,11 +28,10 @@ def loginAPI(request):
         headers={'Content-Type': 'application/json; charset=UTF-8'},
         body=json.dumps(context),
     )
-    print resp ,"JANAL", content
+
     if resp['status'] == '401':
         return render(request, 'Login/401.html', {})
     userid = content
-    print("userid", userid)
     return redirect('Login:weatherForm')
 
 def getStats(request):
@@ -142,7 +141,6 @@ def hit(request):
                 stationCode = stationCodeDict[key]
                 break
         h = httplib2.Http()
-        print("http://52.25.123.69:8888/dataIngestor/3/" +str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
         response, content= h.request("http://52.25.123.69:8888/dataIngestor/3/"+str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
 
         print(content,"BY JANAK",response)
