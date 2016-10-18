@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'v4u(pabkzwg)8w%zy59)y#!6+(pct1*!3!y+e$6=dix2&&vn53'
+
+
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -19,8 +25,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v4u(pabkzwg)8w%zy59)y#!6+(pct1*!3!y+e$6=dix2&&vn53'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -29,7 +33,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,23 +40,31 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'testapp.apps.TestappConfig',
+    #'django.contrib.sites',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
+    #'social.apps.django_app.default',
+    #'social.apps.django_app.default',
     'Login.apps.LoginConfig',
+    'social_auth',
+    #'oauthadmin',
+    #'social.apps.django_app.default',
 ]
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
+SITE_ID = 1
+MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.RemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'SampleWeb.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -64,6 +75,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.request',
+                # 'allauth.account.context_processors.account',
+                # 'allauth.socialaccount.context_processors.socialaccount',
+                # 'social.apps.django_app.context_processors.backends',
+                # 'social.apps.django_app.context_processors.login_redirect',
+                # 'social_auth.context_processors.social_auth_by_type_backends',
+
             ],
             'loaders':[
                 'django.template.loaders.filesystem.Loader',
@@ -74,9 +92,10 @@ TEMPLATES = [
 ]
 
 
+
 WSGI_APPLICATION = 'SampleWeb.wsgi.application'
 
-
+CORS_ORIGIN_ALLOW_ALL = True
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -112,12 +131,40 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 AUTHENTICATION_BACKENDS = [
+    'social_auth.backends.google.GoogleOAuth2Backend',
     'django.contrib.auth.backends.RemoteUserBackend',
+    #'social_auth.backends.google.GoogleOAuth2Backend',
+    #'social.backends.google.GoogleOAuth2',
+    #'social.backends.facebook.FacebookOAuth2',
+    #'social.backends.twitter.TwitterOAuth',
+    # Needed to login by username in Django admin, regardless of `allauth`
+    #'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend'
+    # `allauth` specific authentication methods, such as login by e-mail
 ]
+LOGIN_URL = '/'
+LOGIN_ERROR_URL = '/login-error/'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "925175488137-1bfjigtc6ospod6dn07qr568m85qo1s3.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "rlY6LePoZ_lI6BBwPD8NMNLV"
+SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
+SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
+
+ACCOUNT_USERNAME_REQUIRED = False
+
+
+# CORS_ORIGIN_ALLOW_ALL = True
+# SOCIAL_AUTH_LOGIN_URL = '/'
+# SOCIAL_AUTH_URL_NAMESPACE = 'social'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1033619565535-gjhfe8s5c2hrhok0nqavck0ag5thh2sc.apps.googleusercontent.com'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'BmtUCET7BYgNHXSFu-zSS-aC'
+# SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'email']
+# SOCIAL_AUTH_USER_MODEL = 'Login.models.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
-
+#SESSION_SERIALIZER = "django.contrib.sessions.serializers.PickleSerializer"
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -133,7 +180,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_LOGIN_URL = '/'
+SOCIALACCOUNT_QUERY_EMAIL = True
 
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = (

@@ -2,16 +2,20 @@ from django.shortcuts import render
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+#from django.urls import reverse
 from django.shortcuts import redirect
 import httplib2
 import urllib
 import urllib2
 import json
 
-# Create your views here.
+def home(request):
+    print("I MAAAAA")
+    context = {'request': request,'user': request.user}
+    return render(request, 'Login/login.html',context)
 
 userid=''
+
 def login(request) :
     return render(request, 'Login/login.html', {})
 

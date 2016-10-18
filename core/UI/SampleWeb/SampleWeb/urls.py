@@ -16,12 +16,26 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from testapp import views
-import testapp
+# from testapp import views
+
+#import testapp
 
 urlpatterns = [
+
+    url(r'^$', 'Login.views.home', name='home'),
+    url(r'^home/', 'Login.views.home', name='home'),
+    #url(r'', include('social_auth.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^testapp/', include('testapp.urls')),
+    #url(r'^secrets$', login_required(TemplateView.as_view(template_name="secrets.html"))),
+    #url(r'^soc/', include('social.apps.django_app.urls', namespace='social')),
+   # url(r'^log/', 'Login.views.home', name='home'),
+
     url(r'^login/', include('Login.urls', namespace="Login")),
+    # url('', include('social.apps.django_app.urls', namespace='social')),
+    #url('', include('django.contrib.auth.urls', namespace='auth')),
+    #url(r'/admin/oauth/', include('oauthadmin.urls')),
+    #url(r'^oauth2/', include('provider.oauth2.urls', namespace = 'oauth2')),
+   # url(r'^testapp/', include('testapp.urls')),
+
 ]
 urlpatterns+=staticfiles_urlpatterns()
