@@ -17,14 +17,14 @@ sudo: false
 install: true
 
 before_script:
-  - cd stormDetection
+  - cd core/python/stormDetection
   - pip install Flask
 
 script: nosetests
 
 before_deploy:
-  - cd ..
-  - zip -r TeamBash_stormDetection.zip stormDetection scripts appspec.yml || true
+  - cd ../../../
+  - zip -r TeamBash_stormDetection.zip core/python/stormDetection scripts appspec.yml || true
   - mkdir -p "stormDetection"
   - mv TeamBash_stormDetection.zip stormDetection/TeamBash_stormDetection.zip || true
 

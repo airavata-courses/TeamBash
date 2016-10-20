@@ -2,13 +2,12 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user
+    destination: /home/ec2-user/StormDetection
 hooks:
- BeforeInstall:
+  BeforeInstall:
     - location: scripts/before-install.sh
       timeout: 3500
       runas: root
   ApplicationStart:
     - location: scripts/install.sh
-      timeout: 3600
-      runas: root
+      timeout: 3600      
