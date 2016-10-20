@@ -8,7 +8,6 @@ app = Flask(__name__)
 @app.route('/getKml/noaa-nexrad-level2.s3.amazonaws.com/<yy>/<mm>/<dd>/<stationId>/<filename>.gz', methods=['GET'])
 @app.route('/getKml/https://noaa-nexrad-level2.s3.amazonaws.com/<yy>/<mm>/<dd>/<stationId>/<filename>.gz', methods=['GET'])
 def stormDetection(yy=None, mm=None, dd=None, stationId=None, filename=None):
-
     if yy and mm and dd and stationId and filename:
         url = 'https://noaa-nexrad-level2.s3.amazonaws.com/' + yy + '/' + mm + '/' + dd + '/' + stationId + '/' + filename + '.gz'
         data = read.urlopen(url).read()
