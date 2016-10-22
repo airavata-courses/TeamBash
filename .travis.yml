@@ -4,12 +4,10 @@ branches:
     - master
     - Develop
     - feature/feature-5-storm-clustering
+
 notifications:
-  email:
-    - murugesm@indiana.edu
-    - rraavi@indiana.edu
-    - srameshv@indiana.edu
-    - jbhalla@indiana.edu
+  slack: teambash-iu:Kumv5imwDciZcFQ2KvvUHIje
+
 jdk:
   - oraclejdk8
 sudo: false
@@ -19,7 +17,7 @@ script: cd "core/java/stormClustering/" && mvn clean install -DskipTests=true
 
 before_deploy:
   - cd ../../../
-  - zip -r TeamBash_stormClustering.zip core/java/stormClustering scripts appspec.yml || true
+  - zip -r TeamBash_stormClustering.zip core/java/stormClustering scripts appspec.yml Dockerfile || true
   - mkdir -p "stormClustering_upload"
   - mv TeamBash_stormClustering.zip stormClustering_upload/TeamBash_stormClustering.zip || true
 
