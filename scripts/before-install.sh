@@ -1,9 +1,5 @@
-echo 'killing existing process on ports 9000/9001 if any'
-fuser -k 8888/tcp
-fuser -k 8887/tcp
-sleep 20
-export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk
 echo 'check if maven is installed'
+export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk
 mvn --version
 if [ "$?" -ne 0 ]; then
     echo 'Installing Maven...'
@@ -12,3 +8,19 @@ if [ "$?" -ne 0 ]; then
 	sudo yum install -y apache-maven
 	mvn --version
 fi
+echo 'Checking if Docker is installed'
+docker --version
+if [ "$?" -ne 0 ]; then
+	echo "Installing docker."
+	sudo yum update -y
+	sudo yum install -y docker
+	sudo service docker start
+	sudo usermod -a -G docker ec2-user
+	docker info
+	#Installing docker-compose
+	echo "Installing docker."
+	curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+	chmod +x /usr/local/bin/docker-compose
+fi
+echo 'Removing existing docker instances' >> /var/log/sga-docker.log 2>&1
+docker ps -a | grep 'apigateway-service' | awk '{print $1}' | xargs --no-run-if-empty docker rm -f apigateway-service

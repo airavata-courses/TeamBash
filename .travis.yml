@@ -4,12 +4,10 @@ branches:
     - master
     - Develop
     - feature/feature-10-apigateway
+
 notifications:
-  email:
-    - murugesm@indiana.edu
-    - rraavi@indiana.edu
-    - srameshv@indiana.edu
-    - jbhalla@indiana.edu
+  slack: teambash-iu:Kumv5imwDciZcFQ2KvvUHIje
+
 jdk:
   - oraclejdk8
 sudo: true
@@ -18,7 +16,7 @@ script: cd "core/java/apigateway" && mvn clean install -DskipTests=true
 
 before_deploy:
   - cd ../../../
-  - zip -r TeamBash_apigateway.zip core/java/apigateway scripts appspec.yml || true
+  - zip -r TeamBash_apigateway.zip core/java/apigateway scripts appspec.yml Dockerfile || true
   - mkdir -p "apigateway_upload"
   - mv TeamBash_apigateway.zip apigateway_upload/TeamBash_apigateway.zip || true
 
