@@ -4,8 +4,7 @@ node_js:
 - "4.5.0"
 
 notifications:
-  email:
-    -srameshv@indiana.edu
+  slack: teambash-iu:Kumv5imwDciZcFQ2KvvUHIje
 
 branches:
   only:
@@ -21,7 +20,7 @@ install:
 
 before_deploy:
   - cd ../../../
-  - zip -r ForecastTrigger.zip core/javascript/ForecastTrigger scripts appspec.yml || true
+  - zip -r ForecastTrigger.zip core/javascript/ForecastTrigger scripts appspec.yml Dockerfile || true
   - mkdir -p "teambash"
   - mv ForecastTrigger.zip teambash/ForecastTrigger.zip || true
 
