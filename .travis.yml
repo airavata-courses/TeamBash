@@ -21,15 +21,15 @@ install:
 
 before_deploy:
   - cd ../../../
-  - zip -r RunWeatherForecast.zip core/javascript/runWeatherForecast scripts appspec.yml || true
+  - zip -r RunWeatherForecast_test.zip core/javascript/runWeatherForecast scripts appspec.yml || true
   - mkdir -p "teambash"
-  - mv RunWeatherForecast.zip teambash/RunWeatherForecast.zip || true
+  - mv RunWeatherForecast_test.zip teambash/RunWeatherForecast_test.zip || true
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash
+    bucket: sga-teambash-test
     local_dir: teambash
     region: us-west-2
     skip_cleanup: true
@@ -41,12 +41,11 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash
-    key: RunWeatherForecast.zip
+    bucket: sga-teambash-test
+    key: RunWeatherForecast_test.zip
     bundle_type: zip
-    application: TeamBash-App
-    deployment_group: TeamBash-App
+    application: TeamBash-Test
+    deployment_group: TeamBash-Test
     region: us-west-2
     on:
       branch: feature/feature-15-run-weather-forecast
-
