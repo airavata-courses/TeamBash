@@ -34,3 +34,5 @@ Branch list for each Microservice
 
 * UI Branch : https://github.com/airavata-courses/TeamBash/tree/feature/feature-11-UI
 * API Gateway Branch : https://github.com/airavata-courses/TeamBash/tree/feature/feature-10-apigateway
+=======
+Build Status - Registry MicroService  : [![Build Status](https://travis-ci.org/airavata-courses/TeamBash.svg?branch=feature%2Ffeature-14-registry)](https://travis-ci.org/airavata-courses/TeamBash)

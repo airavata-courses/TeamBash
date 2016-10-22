@@ -14,3 +14,52 @@ notifications:
     - murugesm@indiana.edu
 
 script: nosetests
+=======
+language: java
+branches:
+  only:
+    - master
+    - Develop
+    - release/release-14-registry
+notifications:
+  email:
+    - murugesm@indiana.edu
+    - rraavi@indiana.edu
+    - srameshv@indiana.edu
+    - jbhalla@indiana.edu
+jdk:
+  - oraclejdk8
+sudo: false
+install: true
+script: cd "core/java/registry" && mvn clean install -DskipTests=true
+
+before_deploy:
+  - cd ../../../
+  - zip -r TeamBash_registry_test.zip core/java/registry scripts appspec.yml || true
+  - mkdir -p "registry_upload"
+  - mv TeamBash_registry_test.zip registry_upload/TeamBash_registry_test.zip || true
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: team-bash-test
+    local_dir: registry_upload
+    region: us-west-2
+    skip_cleanup: true
+    acl: public_read
+    detect_encoding: true
+    on:
+      branch: release/release-14-registry
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: team-bash-test
+    key: TeamBash_registry_test.zip
+    bundle_type: zip
+    application: TeamBash-Test
+    deployment_group: TeamBash-Test
+    region: us-west-2
+    on:
+      branch: release/release-14-registry
