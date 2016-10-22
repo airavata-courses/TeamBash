@@ -21,15 +21,15 @@ install:
 
 before_deploy:
   - cd ../../../
-  - zip -r ForecastTrigger.zip core/javascript/ForecastTrigger scripts appspec.yml || true
+  - zip -r ForecastTrigger_test.zip core/javascript/ForecastTrigger scripts appspec.yml || true
   - mkdir -p "teambash"
-  - mv ForecastTrigger.zip teambash/ForecastTrigger.zip || true
+  - mv ForecastTrigger_test.zip teambash/ForecastTrigger_test.zip || true
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
-    secret_access_key: $AWS_SECRET_KEY	
-    bucket: sga-teambash
+    secret_access_key: $AWS_SECRET_KEY  
+    bucket: sga-teambash-test
     local_dir: teambash
     region: us-west-2
     skip_cleanup: true
@@ -41,11 +41,11 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash
-    key: ForecastTrigger.zip
+    bucket: sga-teambash-test
+    key: ForecastTrigger_test.zip
     bundle_type: zip
-    application: TeamBash-App
-    deployment_group: TeamBash-App
+    application: TeamBash-Test
+    deployment_group: TeamBash-Test
     region: us-west-2
     on:
       branch: feature/feature-13-forecast-trigger
