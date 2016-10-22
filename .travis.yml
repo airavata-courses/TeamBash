@@ -22,15 +22,15 @@ script: nosetests
 
 before_deploy:
   - cd ../../../
-  - zip -r TeamBash_stormDetection.zip core/python/stormDetection scripts appspec.yml Dockerfile || true
+  - zip -r TeamBash_stormDetection_test.zip core/python/stormDetection scripts appspec.yml Dockerfile || true
   - mkdir -p "stormDetection"
-  - mv TeamBash_stormDetection.zip stormDetection/TeamBash_stormDetection.zip || true
+  - mv TeamBash_stormDetection_test.zip stormDetection/TeamBash_stormDetection_test.zip || true
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash
+    bucket: sga-teambash-test
     local_dir: stormDetection
     region: us-west-2
     skip_cleanup: true
@@ -42,12 +42,11 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash
-    key: TeamBash_stormDetection.zip
+    bucket: sga-teambash-test
+    key: TeamBash_stormDetection_test.zip
     bundle_type: zip
-    application: TeamBash-App
-    deployment_group: TeamBash-App
+    application: TeamBash-Test
+    deployment_group: TeamBash-Test
     region: us-west-2
     on:
       branch: feature/feature-4-storm-detection
-
