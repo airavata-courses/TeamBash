@@ -26,7 +26,7 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: team-bash-test
+    bucket: sga-teambash-test
     local_dir: registry_upload
     region: us-west-2
     skip_cleanup: true
@@ -38,7 +38,7 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: team-bash-test
+    bucket: sga-teambash-test
     key: TeamBash_registry_test.zip
     bundle_type: zip
     application: TeamBash-Test
