@@ -1,0 +1,24 @@
+{% extends 'Login/base.html' %}
+{% block css %}
+    <link href="/static/Login/home.css" rel="stylesheet">
+{% endblock css %}
+{% block main %}
+<div class="parent_container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="wrap">
+                    <p class="form-title"> Weather Predictor </p>
+                    <h2>Please Sign In to continue...</h2></h1>
+                    <form class="login">
+                         <div class="google"><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}"><strong>Login with Google</strong></a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

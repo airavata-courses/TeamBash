@@ -30,7 +30,7 @@
 		<div class="form_main">
                 <h4 class="heading"><strong>Weather </strong> Information <span></span></h4>
                 <div class="form">
-                <form action="contact_send_mail.php" method="post" id="contactFrm" name="contactFrm">
+                <form action="#" method="post" id="contactFrm" name="contactFrm">
                     <label>Please select the Year: <select name="year" required="" name="name" class="txt">
                         {% for i in year %}
                             <option value={{i}}> {{i}}</option>
@@ -64,6 +64,9 @@
                          {% endfor %}
                          </select></label>
                      <button class="btn btn-primary btn-block"  name="Submit" value="Login" type="Submit">Submit</button>
+
+                    <a class="btn btn-primary" href= "{% url 'Login:start_here'  %} ">Logout</a>
+
                 </form>
             </div>
             </div>
