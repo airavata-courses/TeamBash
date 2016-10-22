@@ -4,7 +4,6 @@ mv /home/ec2-user/DataIngestor  /home/ec2-user/dataIngestor
 cd /home/ec2-user/dataIngestor/
 chmod 777 dataIngestor
 cd dataIngestor
-python DataIngestor.py  >> dataIngestor.log 2>&1 &
 echo '===============Building docker===============' >> /var/log/sga-docker.log 2>&1
 docker build -t teambash/data-ingestor-service:v1 . >> /var/log/sga-docker.log 2>&1
 echo '===============Running docker===============' >> /var/log/sga-docker.log 2>&1
