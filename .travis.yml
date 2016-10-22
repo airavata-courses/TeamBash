@@ -5,7 +5,7 @@ python:
 
 branches:
   only:
-    - feature/feature-3-data-ingestor
+    - release/release-3-data-ingestor
 
 install: true
 
@@ -40,7 +40,7 @@ deploy:
     detect_encoding: true
     on:
       repo: airavata-courses/TeamBash 
-      branch: feature/feature-3-data-ingestor
+      branch: release/release-3-data-ingestor
  
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
@@ -53,5 +53,5 @@ deploy:
     region: us-west-2
     on:
       repo: airavata-courses/TeamBash
-      branch: feature/feature-3-data-ingestor
+      branch: release/release-3-data-ingestor
 
