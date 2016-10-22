@@ -19,9 +19,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
-    #url('', include('social.apps.django_app.urls', namespace='social')),
-    #url(r'^$', include('social_auth.urls')),
-
     url(r'^admin/', admin.site.urls),
     url(r'^home/', 'Login.views.start_here', name='start_here'),
     url(r'', include('social.apps.django_app.urls', namespace='social')),
