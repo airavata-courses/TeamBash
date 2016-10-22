@@ -10,8 +10,7 @@ branches:
 install: true
 
 notifications:
-  email:
-    - srameshv@indiana.edu
+  slack: teambash-iu:Kumv5imwDciZcFQ2KvvUHIje
 
 sudo: false
 
@@ -25,7 +24,7 @@ script: nosetests
 
 before_deploy:
   - cd ../../../
-  - zip -r TeamBash_DataIngestor.zip core/python/DataIngestor scripts appspec.yml || true
+  - zip -r TeamBash_DataIngestor.zip core/python/DataIngestor scripts appspec.yml Dockerfile || true
   - mkdir -p "dataIngestor_upload"
   - mv TeamBash_DataIngestor.zip dataIngestor_upload/TeamBash_DataIngestor.zip || true
 

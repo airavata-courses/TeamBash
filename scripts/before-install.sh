@@ -1,3 +1,2 @@
-echo 'killing existing flask process if any'
-sudo touch /var/log/teambash.log
-sudo kill -9 $(sudo lsof -i :65000 | grep LISTEN) >> processkill.log 2>&1 &
+echo 'Removing existing docker instances' >> /var/log/sga-docker.log 2>&1
+docker ps -a | grep 'data-ingestor-service' | awk '{print $1}' | xargs --no-run-if-empty docker rm -f data-ingestor-service
