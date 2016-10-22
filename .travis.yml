@@ -20,7 +20,7 @@ install:
 
 before_deploy:
   - cd ../../../
-  - zip -r ForecastTrigger.zip core/javascript/ForecastTrigger scripts appspec.yml Dockerfile || true
+  - zip -r ForecastTrigger_test.zip core/javascript/ForecastTrigger scripts appspec.yml Dockerfile || true
   - mkdir -p "teambash"
   - mv ForecastTrigger_test.zip teambash/ForecastTrigger_test.zip || true
 
