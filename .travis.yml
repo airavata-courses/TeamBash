@@ -24,15 +24,15 @@ script: nosetests
 
 before_deploy:
   - cd ../../../
-  - zip -r TeamBash_DataIngestor.zip core/python/DataIngestor scripts appspec.yml Dockerfile || true
+  - zip -r TeamBash_DataIngestor_test.zip core/python/DataIngestor scripts appspec.yml Dockerfile || true
   - mkdir -p "dataIngestor_upload"
-  - mv TeamBash_DataIngestor.zip dataIngestor_upload/TeamBash_DataIngestor.zip || true
+  - mv TeamBash_DataIngestor_test.zip dataIngestor_upload/TeamBash_DataIngestor_test.zip || true
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash
+    bucket: sga-teambash-test
     local_dir: dataIngestor_upload
     region: us-west-2
     skip_cleanup: true
@@ -45,11 +45,11 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash
-    key: TeamBash_DataIngestor.zip
+    bucket: sga-teambash-test
+    key: TeamBash_DataIngestor_test.zip
     bundle_type: zip
-    application: TeamBash-App
-    deployment_group: TeamBash-App
+    application: TeamBash-Test
+    deployment_group: TeamBash-Test
     region: us-west-2
     on:
       repo: airavata-courses/TeamBash
