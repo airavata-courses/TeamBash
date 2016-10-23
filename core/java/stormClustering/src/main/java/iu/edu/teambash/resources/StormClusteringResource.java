@@ -11,11 +11,11 @@ import javax.ws.rs.Produces;
 @Path("/StormClustering")
 public class StormClusteringResource {
 
-        @GET
-        @Produces("application/xml")
-        public String generateKML() {
+    @GET
+    @Produces("application/xml")
+    public String generateKML() {
 
-            String sampleOutput = "<kml><b1>Data Here</b1></kml>";
-            return sampleOutput;
-        }
+        String sampleOutput = "<kml><b1>Data Here</b1></kml>";
+        return sampleOutput;
+    }
 }

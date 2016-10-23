@@ -13,7 +13,7 @@ jdk:
 sudo: false
 install: true
 
-script: cd "core/java/stormClustering/" && mvn clean install -DskipTests=true
+script: cd "core/java/stormClustering/" && mvn clean install
 
 before_deploy:
   - cd ../../../
