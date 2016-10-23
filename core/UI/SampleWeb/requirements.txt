@@ -1,4 +1,4 @@
 Django==1.8.1
-django-social-auth>=0.7.22
 python-social-auth>=0.1.12
 requests==2.4.3
+httplib2

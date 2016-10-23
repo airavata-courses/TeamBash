@@ -5,7 +5,6 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.template.context import RequestContext
 
-from social_auth.models import UserSocialAuth
 import httplib2
 import urllib
 import urllib2
