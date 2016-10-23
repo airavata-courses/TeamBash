@@ -4,7 +4,7 @@ python:
   - 3.4
 branches:
   only:
-    - feature/feature-11-UI
+    - release/release-11-UI
 
 notifications:
   email:
@@ -18,31 +18,31 @@ install:
 script: nosetests
 
 before_deploy:
-  - zip -r TeamBash_UI_test.zip core/UI/SampleWeb scripts appspec.yml || true
+  - zip -r TeamBash_UI.zip core/UI/SampleWeb scripts appspec.yml || true
   - mkdir -p "UI_upload"
-  - mv TeamBash_UI_test.zip UI_upload/TeamBash_UI_test.zip || true
+  - mv TeamBash_UI.zip UI_upload/TeamBash_UI.zip || true
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash-test
+    bucket: sga-teambash
     local_dir: UI_upload
     region: us-west-2
     skip_cleanup: true
     acl: public_read
     detect_encoding: true
     on:
-      branch: feature/feature-11-UI
+      branch: release/release-11-UI
 
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash-test
-    key: TeamBash_UI_test.zip
+    bucket: sga-teambash
+    key: TeamBash_UI.zip
     bundle_type: zip
-    application: TeamBash-Test
-    deployment_group: TeamBash-Test
+    application: TeamBash-App
+    deployment_group: TeamBash-App
     region: us-west-2
     on:
-      branch: feature/feature-11-UI
+      branch: release/release-11-UI
