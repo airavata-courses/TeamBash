@@ -1,8 +1,6 @@
 echo 'Installing Storm Clustering' 
 rm -r /home/ec2-user/stormClustering
 mv /home/ec2-user/stormClusteringService /home/ec2-user/stormClustering
-cd "/home/ec2-user/stormClustering/core/java/stormClustering"
-sudo mvn -e clean install
 cd /home/ec2-user/stormClustering/
 chmod 777 stormClustering
 cd stormClustering
