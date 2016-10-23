@@ -3,7 +3,7 @@ branches:
   only:
     - master
     - Develop
-    - feature/feature-5-storm-clustering
+    - release/release-5-storm-clustering
 
 notifications:
   slack: teambash-iu:Kumv5imwDciZcFQ2KvvUHIje
@@ -17,31 +17,31 @@ script: cd "core/java/stormClustering/" && mvn clean install -DskipTests=true
 
 before_deploy:
   - cd ../../../
-  - zip -r TeamBash_stormClustering_test.zip core/java/stormClustering scripts appspec.yml Dockerfile || true
+  - zip -r TeamBash_stormClustering.zip core/java/stormClustering scripts appspec.yml Dockerfile || true
   - mkdir -p "stormClustering_upload"
-  - mv TeamBash_stormClustering_test.zip stormClustering_upload/TeamBash_stormClustering_test.zip || true
+  - mv TeamBash_stormClustering.zip stormClustering_upload/TeamBash_stormClustering.zip || true
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash-test
+    bucket: sga-teambash
     local_dir: stormClustering_upload
     region: us-west-2
     skip_cleanup: true
     acl: public_read
     detect_encoding: true
     on:
-      branch: feature/feature-5-storm-clustering
+      branch: release/release-5-storm-clustering
 
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash-test
-    key: TeamBash_stormClustering_test.zip
+    bucket: sga-teambash
+    key: TeamBash_stormClustering.zip
     bundle_type: zip
-    application: TeamBash-Test
-    deployment_group: TeamBash-Test
+    application: TeamBash-App
+    deployment_group: TeamBash-App
     region: us-west-2
     on:
-      branch: feature/feature-5-storm-clustering
+      branch: release/release-5-storm-clustering
