@@ -23,7 +23,7 @@ public class UserDao extends AbstractDAO<UsersEntity> {
         return persist(user);
     }
 
-    public List<UsersEntity> findByNamePassword(String uname, String password) {
-        return list(namedQuery("db.UsersEntity.findByNamePassword").setParameter("uname", uname).setParameter("password", password));
+    public List<UsersEntity> findByName(String uname) {
+        return list(namedQuery("db.UsersEntity.findByName").setParameter("uname", uname));
     }
 }

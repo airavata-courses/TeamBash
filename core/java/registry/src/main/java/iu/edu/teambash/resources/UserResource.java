@@ -14,6 +14,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/createUser")
 @Produces(MediaType.APPLICATION_JSON)
@@ -29,9 +30,14 @@ public class UserResource {
     @POST
     @Timed
     @UnitOfWork
-    public int login(String uname) {
-        UsersEntity user = new UsersEntity(uname);
-        userDao.create(user);
-        return user.getUid();
+    public int createUser(String uname) {
+        List<UsersEntity> userList = userDao.findByName(uname);
+        if(userList.size() > 0){
+            return  userList.get(0).getUid();
+        } else {
+            UsersEntity user = new UsersEntity(uname);
+            userDao.create(user);
+            return userDao.findByName(uname).get(0).getUid();
+        }
     }
 }

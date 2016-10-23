@@ -7,6 +7,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "users", schema = "TeamBash", catalog = "")
+@NamedQueries({
+        @NamedQuery(name = "db.UsersEntity.findByName",
+                query = "SELECT u FROM UsersEntity u WHERE u.uname = :uname")
+        })
 public class UsersEntity {
 
     @Id
