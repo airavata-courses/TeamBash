@@ -1,16 +1,46 @@
-language: python
-
-python:
-  - "2.7"
-
+language: java
 branches:
   only:
-    - master
-
-install: true
-
+    - feature/feature-20-monitor
 notifications:
   email:
     - murugesm@indiana.edu
+    - rraavi@indiana.edu
+    - srameshv@indiana.edu
+    - jbhalla@indiana.edu
+jdk:
+  - oraclejdk8
+sudo: false
+install: true
+script: cd "core/java/monitor" && mvn clean install -DskipTests=true
 
-script: nosetests
+before_deploy:
+  - cd ../../../
+  - zip -r TeamBash_monitor_test.zip core/java/monitor scripts appspec.yml || true
+  - mkdir -p "monitor_upload"
+  - mv TeamBash_monitor_test.zip monitor_upload/TeamBash_monitor_test.zip || true
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: sga-teambash
+    local_dir: monitor_upload
+    region: us-west-2
+    skip_cleanup: true
+    acl: public_read
+    detect_encoding: true
+    on:
+      branch: feature/feature-20-monitor
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: sga-teambash
+    key: TeamBash_monitor_test.zip
+    bundle_type: zip
+    application: TeamBash-Test
+    deployment_group: TeamBash-Test
+    region: us-west-2
+    on:
+      branch: feature/feature-20-monitor
