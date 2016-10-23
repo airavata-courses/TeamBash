@@ -7,8 +7,7 @@ branches:
     - feature/feature-11-UI
 
 notifications:
-  email:
-    - srameshv@indiana.edu
+  slack: teambash-iu:Kumv5imwDciZcFQ2KvvUHIje
 
 sudo: true
 
@@ -18,7 +17,7 @@ install:
 script: nosetests
 
 before_deploy:
-  - zip -r TeamBash_UI_test.zip core/UI/SampleWeb scripts appspec.yml || true
+  - zip -r TeamBash_UI_test.zip core/UI/SampleWeb scripts appspec.yml Dockerfile || true
   - mkdir -p "UI_upload"
   - mv TeamBash_UI_test.zip UI_upload/TeamBash_UI_test.zip || true
 
