@@ -8,7 +8,7 @@ notifications:
 
 branches:
   only:
-    - feature/feature-15-run-weather-forecast
+    - release/release-15-run-weather-forecast
 
 sudo: true
 
@@ -20,31 +20,31 @@ install:
 
 before_deploy:
   - cd ../../../
-  - zip -r RunWeatherForecast_test.zip core/javascript/runWeatherForecast scripts appspec.yml Dockerfile || true
+  - zip -r RunWeatherForecast.zip core/javascript/runWeatherForecast scripts appspec.yml Dockerfile || true
   - mkdir -p "teambash"
-  - mv RunWeatherForecast_test.zip teambash/RunWeatherForecast_test.zip || true
+  - mv RunWeatherForecast.zip teambash/RunWeatherForecast.zip || true
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash-test
+    bucket: sga-teambash
     local_dir: teambash
     region: us-west-2
     skip_cleanup: true
     acl: public_read
     detect_encoding: true
     on:
-      branch: feature/feature-15-run-weather-forecast
+      branch: release/release-15-run-weather-forecast
 
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash-test
-    key: RunWeatherForecast_test.zip
+    bucket: sga-teambash
+    key: RunWeatherForecast.zip
     bundle_type: zip
-    application: TeamBash-Test
-    deployment_group: TeamBash-Test
+    application: TeamBash-App
+    deployment_group: TeamBash-App
     region: us-west-2
     on:
-      branch: feature/feature-15-run-weather-forecast
+      branch: release/release-15-run-weather-forecast
