@@ -14,31 +14,25 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'Login/weatherForm.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Login/weatherForm1.css' %}">
 
 </head>
 <body>
-
-
-<a class="btn btn-primary" href = "{% url 'Login:getStats'  %} " >LogStats</a>
-<form action="{% url 'Login:hit'  %} " method="post" name="Login_Form" class="form-signin">
-
+<div class="container">
+<form action="{% url 'Login:hit'  %} " method="post" id="contact">
     {% csrf_token %}
-    <div class="container">
-	<div class="row">
-    <div class="col-md-4">
-		<div class="form_main">
-                <h4 class="heading"><strong>Weather </strong> Information <span></span></h4>
-                <div class="form">
-                <form action="#" method="post" id="contactFrm" name="contactFrm">
-                    <label>Please select the Year: <select name="year" required="" name="name" class="txt">
-                        {% for i in year %}
-                            <option value={{i}}> {{i}}</option>
-
-                         {% endfor %}
-                         </select></label>
-                    <label>Please select the Month: <select name="month" required="" name="name" class="txt">
-                            <option value='01'>01</option>
+<div class="form-group">
+  <label for="exampleSelect1">Please select the Year:
+    <select name = "year" id="exampleSelect1" class ="txt">
+        {% for i in year %}
+            <option value={{i}}> {{i}}</option>
+        {% endfor %}
+    </select></label>
+</div>
+<div class="form-group">
+  <label for="exampleSelect1">Please select the Month:
+    <select name = "month" id="exampleSelect1" class ="txt">
+        <option value='01'>01</option>
                             <option value='02'>02</option>
                             <option value='03'>03</option>
                             <option value='04'>04</option>
@@ -50,29 +44,36 @@
                             <option value='10'>10</option>
                             <option value='11'>11</option>
                             <option value='12'>12</option>
-                         </select></label>
-
-                     <label>Please select the Day: <select name="day" required="" name="day" class="txt">
-                        {% for i in day %}
-                            <option value={{i}}> {{i}}</option>
-                         {% endfor %}
-                         </select></label>
-
-                    <label>Please select the Station: <select name="station" required="" name="station" class="txt">
-                        {% for i in station %}
-                            <option value={{i}}> {{i}}</option>
-                         {% endfor %}
-                         </select></label>
-                     <button class="btn btn-primary btn-block"  name="Submit" value="Login" type="Submit">Submit</button>
-
-                    <a class="btn btn-primary" href= "{% url 'Login:start_here'  %} ">Logout</a>
-
-                </form>
-            </div>
-            </div>
-            </div>
-	</div>
+    </select></label>
 </div>
+<div class="form-group">
+  <label for="exampleSelect1">Please select the Day:
+    <select name = "day" required="" id="exampleSelect1" class ="txt">
+        {% for i in day %}
+            <option value={{i}}> {{i}}</option>
+        {% endfor %}
+    </select></label>
+</div>
+
+<div class="form-group">
+    <label for="exampleSelect1">Please select the Station:
+    <select name = "station" id="exampleSelect1" class ="txt">
+        {% for i in station %}
+            <option value={{i}}> {{i}}</option>
+        {% endfor %}
+    </select></label>
+</div>
+    <fieldset>
+    <button name="Submit" value="Login" type="Submit">Submit</button>
+        </fieldset>
+    <fieldset>
+    <a name ="submit" href= "{% url 'Login:start_here'  %} ">Logout</a>
+    </fieldset>
+
+    <fieldset>
+        <a name ="submit" href= "{% url 'Login:getStats'  %} ">GetLog</a>
+    </fieldset>
 </form>
+</div>
 </body>
 </html>

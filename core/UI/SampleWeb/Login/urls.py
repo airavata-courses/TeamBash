@@ -3,7 +3,8 @@ from django.contrib import admin
 from . import views
 #regex,name of the function,shorthand name
 urlpatterns = [
-    url(r'^$', views.weatherForm, name = "weatherForm"),
+    #url(r'^$', views.weatherForm, name = "weatherForm"),
+    url(r'^$', views.loginAPI, name = "loginAPI"),
     url('complete/google-oauth2/', views.home, name="home"),
     url('weatherForm', views.weatherForm, name = "weatherForm"),
     url('loginUser', views.loginAPI, name = "loginAPI"),

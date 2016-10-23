@@ -4,14 +4,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.template.context import RequestContext
-
-from social_auth.models import UserSocialAuth
 import httplib2
+import httplib
 import urllib
 import urllib2
 import json
 from django.contrib.auth import logout
 
+global userid
 def login(request):
     context = RequestContext(request, {'request': request, 'user': request.user})
     return render_to_response('Login/login.html', context_instance=context)
@@ -30,44 +30,39 @@ def logout(request):
     auth_logout(request)
     return redirect('/')
 
-userid=''
-
 def login(request) :
     return render(request, 'Login/login.html', {})
 
-def loginAPI(request):
-    context = {
-        'username': request.POST['Username'],
-        'password': request.POST['Password'],
-    }
+def setUid(uid):
+    print("SET IS ALREADY TAKEN")
+    global userid
+    userid = uid
 
+def getUid():
+    return userid
+
+def loginAPI(request):
     h = httplib2.Http()
+    context = {
+        "useremail" : str(request.user.email),
+    }
     resp, content = h.request(
-        uri='http://52.25.123.69:8888/loginUser',
+        uri='http://52.25.123.69:8888/createUser',
         method='POST',
         headers={'Content-Type': 'application/json; charset=UTF-8'},
-        body=json.dumps(context),
+        body=json.dumps(request.user.email),
     )
-
     if resp['status'] == '401':
         return render(request, 'Login/401.html', {})
-    userid = content
-    return redirect('Login:weatherForm')
+    #userid = content
+    setUid(content)
+    #return redirect('Login:weatherForm',userid)
+    return weatherForm(request,content)
 
-def getStats(request):
-    h = httplib2.Http()
-    context = {
-        'userid': userid
-    }
+def weatherForm(request,uid):
+    print("I AM HERRE",request.user.email,uid)
+    setUid(uid)
 
-    body = urllib.urlencode(context)
-    resp, content = h.request("http://52.25.123.69:8888/registry/displayData/3", method="GET", body=body)
-
-    return render(request, 'Login/login.html', {})
-
-
-def weatherForm(request):
-    print("I AM HERRE",request.user.email)
     stationList1 = ['Albany, NY', 'Albuquerque, NM', 'Amarillo, TX', 'Anchorage/Kenai, AK', 'Andersen AFB, Guam', 'Atlanta, GA', 'Beale AFB, CA', 'Bethel, AK', 'Billings, MT', 'Binghamton, NY', 'Biorka Island/Sitka, AK', 'Birmingham, AL', 'Bismarck, ND', 'Blacksburg, VA', 'Boston, MA', 'Brownsville, TX', 'Buffalo, NY', 'Burlington, VT', 'Cannon AFB, NM', 'Caribou, ME', 'Cedar City, UT', 'Charleston, SC', 'Charleston, WV', 'Cheyenne, WY', 'Chicago, IL', 'Cincinnati/Wilmington, OH', 'Cleveland, OH', 'Columbia, SC', 'Columbus AFB, MS', 'Corpus Christi, TX', 'Denver, CO', 'Des Moines IA', 'Detroit, MI', 'Dodge City, KS', 'Dover AFB, DE', 'Duluth, MN', 'Dyess AFB, TX', 'Edwards AFB, CA', 'El Paso, TX', 'Eureka, CA', 'Evansville, IN', 'Fairbanks/Pedro Dome, AK', 'Flagstaff, AZ', 'Fort Smith, AR', 'Frederick/Altus AFB, OK', 'Ft Campbell, KY', 'Ft Rucker, AL', 'Ft Worth, TX', 'Gaylord, MI', 'Glasgow, MT', 'Goodland, KS', 'Grand Forks, ND', 'Grand Junction, CO', 'Grand Rapids, MI', 'Great Falls, MT', 'Green Bay, WI', 'Greer, SC', 'Hastings, NE', 'Holloman AFB, NM', 'Houston, TX', 'Huntsville/Hytop, AL', 'Indianapolis, IN', 'Jackson, KY', 'Jackson, MS', 'Kamuela/Kohala, HI', 'Kansas City, MO', 'Key West, FL', 'King Salmon, AK', 'Knoxville/Morristown, TN', 'La Crosse, WI', 'Lake Charles, LA', 'Las Vegas, NV', 'Laughlin AFB, TX', 'Lincoln, IL', 'Little Rock, AR', 'Los Angeles, CA', 'Louisville, KY', 'Lubbock, TX', 'Marquette, MI', 'Maxwell AFB, AL', 'Medford, OR', 'Melbourne, FL', 'Memphis, TN', 'Miami, FL', 'Middleton Island, AK', 'Midland/Odessa, TX', 'Milwaukee, WI', 'Minneapolis, MN', 'Minot AFB, ND', 'Mobile, AL', 'Molokai, HI', 'Montague/Ft Drum, NY', 'Moody AFB, GA', 'Morehead City, NC', 'Nashville, TN', 'New Orleans, LA', 'Nome, AK', 'North Platte, NE', 'Northern Indiana/North Webster, IN', 'Northwest Florida/Eglin AFB, FL', 'Oklahoma City, OK', 'Omaha, NE', 'Paducah, KY', 'Pendleton, OR', 'Philadelphia, PA', 'Phoenix, AZ', 'Pittsburgh, PA', 'Pocatello, ID', 'Portland, ME', 'Portland, OR', 'Pueblo, CO', 'Quad Cities/Davenport, IA', 'Raleigh/Durham, NC', 'Rapid City, SD', 'Riverton, WY', 'Robins AFB, GA', 'Sacramento, CA', 'Salt Lake City, UT', 'San Angelo, TX', 'San Antonio, TX', 'San Diego, CA', 'San Joaquin Valley, CA', 'San Juan, PR', 'Santa Ana Mountains, CA', 'Seattle, WA', 'Shreveport, LA', 'Sioux Falls, SD', 'South Kauai, HI', 'South Shore, HI', 'Spokane, WA', 'Springfield, MO', 'St Louis, MO', 'State College, PA', 'Sterling, VA', 'Tallahassee, FL', 'Tampa Bay, FL', 'Topeka, KS', 'Tucson, AZ', 'Tulsa, OK', 'Vandenberg AFB, CA', 'Wakefield, VA', 'Wichita, KS', 'Wilmington, NC', 'Yuma, AZ']
     stationList =['KABR','KENX', 'KABX', 'KAMA', 'PAHG', 'PGUA', 'KFFC', 'KBBX', 'PABC', 'FAA', 'KBLX', 'KBGM', 'PACG', 'KBMX', 'KBIS',
      'NWS', 'KFCX', 'KBOX', 'KBRO', 'KBUF', 'KCXX', 'KFDX', 'KCBW', 'KICX', 'KCLX', 'KRLX', 'KCYS', 'KLOT', 'KILN',
@@ -86,10 +81,46 @@ def weatherForm(request):
             day.append('0'+str(i))
         else:
             day.append(str(i))
+    h = httplib2.Http()
+    context = {
+        "useremail": str(request.user.email),
+    }
+    resp, content = h.request(
+        # uri='http://52.25.123.69:8888/loginUser',
+        uri='http://52.25.123.69:8888/createUser',
+        method='POST',
+        headers={'Content-Type': 'application/json; charset=UTF-8'},
+        body=json.dumps(request.user.email),
+    )
+    if resp['status'] == '401':
+        return render(request, 'Login/401.html', {})
     return render(request, 'Login/weatherForm.html', {'year' : range(1991,2017), 'day':day , 'station':stationList1})
 
+def getStats(request):
+    #body = urllib.urlencode(context)
+    h = httplib2.Http()
+    resp, content = h.request("http://52.25.123.69:8888/registry/displayData/"+str(userid), method="GET")
+    #print(content,"this is it")
+    return render(request, 'Login/stats.html', {'content':content})
 
 def hit(request):
+    global userid
+    print("adijasdijaijiodjsfiojadiosj;oij",request.POST.get("day", "01"))
+    h = httplib2.Http()
+    context = {
+        "useremail": str(request.user.email),
+    }
+    resp, content = h.request(
+        # uri='http://52.25.123.69:8888/loginUser',
+        uri='http://52.25.123.69:8888/createUser',
+        method='POST',
+        headers={'Content-Type': 'application/json; charset=UTF-8'},
+        body=json.dumps(request.user.email),
+    )
+    if resp['status'] == '401':
+        return render(request, 'Login/401.html', {})
+    userid = content
+    print("FALSEI"*10,userid)
     stationCodeDict = {'Aberdeen, SD ': 'KVBX', 'Tulsa, OK': 'KSGF', 'Milwaukee, WI': 'KAMX',
                        'Columbus AFB, MS': 'KCLE', 'Rapid City, SD': 'KGYX',
                        'El Paso, TX': 'KDYX', 'Bismarck, ND': 'KBMX', 'Caribou, ME': 'KCXX', 'Sioux Falls, SD': 'KNKX',
@@ -160,7 +191,7 @@ def hit(request):
                 stationCode = stationCodeDict[key]
                 break
         h = httplib2.Http()
-        response, content= h.request("http://52.25.123.69:8888/dataIngestor/3/"+str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
+        response, content= h.request("http://52.25.123.69:8888/dataIngestor/"+str(userid)+"/"+str(request.POST['year'])+'/'+str(request.POST['month'])+'/'+str(request.POST['day'])+'/'+stationCode+'/')
         if content == 'false':
             return render(request, 'Login/falseForecast.html')
         elif response['status']=='206':
@@ -171,7 +202,6 @@ def hit(request):
             return render(request, 'Login/500.html')
         else:
             return render(request, 'Login/Result.html',content)
-
 
 def result(request):
     if '404' in request.body:
