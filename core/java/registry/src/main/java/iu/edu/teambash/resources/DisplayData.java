@@ -4,13 +4,13 @@ import io.dropwizard.hibernate.UnitOfWork;
 import iu.edu.teambash.core.LogEntity;
 import iu.edu.teambash.db.LogDao;
 
-import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by murugesm on 9/19/16.
@@ -32,8 +32,7 @@ public class DisplayData {
     @UnitOfWork
     @Path("/displayData/{uID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response display(@PathParam("uID") int uID)
-    {
+    public Response display(@PathParam("uID") int uID) {
         List<LogEntity> logList = logDao.findLogs(uID);
         return Response.ok(logList).build();
     }
@@ -42,8 +41,7 @@ public class DisplayData {
     @UnitOfWork
     @Path("/startLog/{uID}/{mID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response insertService(@PathParam("uID") int uID, @PathParam("mID") int mID)
-    {
+    public Response insertService(@PathParam("uID") int uID, @PathParam("mID") int mID) {
         //Creates new Log row
         LogEntity newLog = new LogEntity();
 
@@ -64,8 +62,7 @@ public class DisplayData {
     @UnitOfWork
     @Path("/endLog/{lID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response endService(@PathParam("lID") int lID)
-    {
+    public Response endService(@PathParam("lID") int lID) {
         //Find the log row matching to the log ID
         LogEntity newLog = logDao.findById(lID);
 
