@@ -18,15 +18,15 @@ script: cd "core/java/registry" && mvn clean install -DskipTests=true
 
 before_deploy:
   - cd ../../../
-  - zip -r TeamBash_registry_test.zip core/java/registry scripts appspec.yml || true
+  - zip -r TeamBash_registry.zip core/java/registry scripts appspec.yml || true
   - mkdir -p "registry_upload"
-  - mv TeamBash_registry_test.zip registry_upload/TeamBash_registry_test.zip || true
+  - mv TeamBash_registry.zip registry_upload/TeamBash_registry.zip || true
 
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash-test
+    bucket: sga-teambash
     local_dir: registry_upload
     region: us-west-2
     skip_cleanup: true
@@ -38,11 +38,11 @@ deploy:
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY # declared in Travis repo settings
     secret_access_key: $AWS_SECRET_KEY
-    bucket: sga-teambash-test
-    key: TeamBash_registry_test.zip
+    bucket: sga-teambash
+    key: TeamBash_registry.zip
     bundle_type: zip
-    application: TeamBash-Test
-    deployment_group: TeamBash-Test
+    application: TeamBash-App
+    deployment_group: TeamBash-App
     region: us-west-2
     on:
       branch: release/release-14-registry
