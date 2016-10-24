@@ -200,12 +200,12 @@ def hit(request):
         elif response['status'] == '500':
             return render(request, 'Login/500.html')
         else:
-            return render(request, 'Login/Result.html',content)
+            return render(request, 'Login/Result.html')
 
 def result(request):
     if '404' in request.body:
-        return render(request, 'Login/404.html', {})
+        return render(request, 'Login/404.html',)
     else:
-        return render(request, 'Login/Result.html',{} )
+        return render(request, 'Login/Result.html' )
 
 
