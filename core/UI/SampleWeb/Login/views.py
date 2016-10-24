@@ -104,7 +104,6 @@ def getStats(request):
 
 def hit(request):
     global userid
-    print("adijasdijaijiodjsfiojadiosj;oij",request.POST.get("day", "01"))
     h = httplib2.Http()
     context = {
         "useremail": str(request.user.email),
