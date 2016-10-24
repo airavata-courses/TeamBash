@@ -1,8 +1,6 @@
 package iu.edu.teambash.core;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import javax.persistence.EntityManager;
 
 /**
  * Created by murugesm on 9/20/16.
