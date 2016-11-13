@@ -10,7 +10,7 @@ import urllib
 import urllib2
 import json
 from django.contrib.auth import logout
-
+#for keeping track of the user
 global userid
 def login(request):
     context = RequestContext(request, {'request': request, 'user': request.user})
